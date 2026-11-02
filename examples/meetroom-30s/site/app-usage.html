@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>利用状況 — ヘヤマド（架空のサービス）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <a class="logo" href="index.html"><span class="logo-mark"><i></i><i></i><i></i><i></i></span>ヘヤマド</a>
+    <ul>
+      <li><a href="app-availability.html">空き状況</a></li>
+      <li><a href="#">自分の予約</a></li>
+      <li><a class="on" href="app-usage.html">利用状況</a></li>
+      <li><a href="#">部屋の設定</a></li>
+    </ul>
+    <div class="org">本社ビル（3F–8F）<br>36 室</div>
+  </aside>
+  <div class="main">
+    <header class="topbar"><h2>利用状況（10 月）</h2><div class="user"><span>総務部 青木</span><span class="avatar">青</span></div></header>
+    <div class="content">
+      <dl class="kpis">
+        <div class="kpi"><dt>会議室の稼働率</dt><dd>78<small>%</small></dd><div class="delta">導入前の月より +17 ポイント</div></div>
+        <div class="kpi"><dt>自動で解放した予約</dt><dd>124<small>件</small></dd><div class="delta">ほかの人が使えた部屋 96 件</div></div>
+        <div class="kpi"><dt>部屋が見つかるまで</dt><dd>12<small>秒</small></dd><div class="delta">検索から予約までの中央値</div></div>
+      </dl>
+      <div class="usage">
+        <section class="panel">
+          <h4>フロア × 時間帯の稼働率</h4>
+          <div class="heat" id="heat"></div>
+        </section>
+        <section class="panel">
+          <h4>自動で解放した予約（最近）</h4>
+          <ul class="log">
+            <li><time>10:10</time><span>6F 梅 ・ 10:00–11:00</span><span class="tag">別の予約へ</span></li>
+            <li><time>11:40</time><span>4F 空 ・ 11:30–12:30</span><span class="tag">別の予約へ</span></li>
+            <li><time>13:10</time><span>7F 柊 ・ 13:00–14:00</span><span class="tag">解放</span></li>
+            <li><time>15:10</time><span>8F 楠 ・ 15:00–16:30</span><span class="tag">別の予約へ</span></li>
+            <li><time>16:40</time><span>5F 夕 ・ 16:30–17:00</span><span class="tag">解放</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// 稼働率のヒートマップ（架空の固定値 0–100）
+const H = ["9","10","11","12","13","14","15","16","17","18"];
+const D = {
+  "8F":[40,72,88,35,66,92,85,74,50,20], "7F":[55,80,90,42,70,95,88,80,58,25],
+  "6F":[38,66,84,30,62,90,82,70,46,18], "5F":[30,60,78,28,55,86,76,64,40,15],
+  "4F":[45,74,86,38,68,93,84,77,52,22], "3F":[25,52,70,22,48,80,70,58,35,12] };
+let h = '<span></span>' + H.map(x => `<span class="h">${x}時</span>`).join("");
+for (const [f, row] of Object.entries(D))
+  h += `<span class="f">${f}</span>` + row.map(v => `<i style="opacity:${(0.12 + v / 100 * 0.88).toFixed(2)}" title="${v}%"></i>`).join("");
+document.getElementById("heat").innerHTML = h;
+</script>
+</body>
+</html>

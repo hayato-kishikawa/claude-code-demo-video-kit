@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.pyc
+renders/work-*
+*.raw.wav
+.DS_Store
+.venv/
+.hyperframes/*.log
+*.log
+.thumbnails/
+.waveform-cache/

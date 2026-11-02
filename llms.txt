@@ -1,0 +1,25 @@
+# claude-code-demo-video-kit
+
+> Claude Code などのコーディングエージェントが、日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 mp4）を HyperFrames で作るための手順・スキル・スクリプト・完成例。素材は gpt-image-2（写真）と gpt-realtime-2（TTS）で作る。30 秒 1 本の API 費用は約 0.73 米ドル（2026-11 実測）。
+
+始める前に AGENTS.md の「着手前に、利用者へ必ず確認すること」を読み、接続先・費用・権利・BGM のライセンスを利用者に確認すること。
+
+## 手順
+- [AGENTS.md](AGENTS.md): 確認事項、環境構築、手順、完了条件、禁止事項
+- [skills/ja-narrated-video/SKILL.md](skills/ja-narrated-video/SKILL.md): 工程①〜⑧とスクリプト一覧
+- [skills/ja-narrated-video/references/authoring.md](skills/ja-narrated-video/references/authoring.md): コマのレイヤ指定、字幕、BGM、レンダの細部
+- [skills/ja-narrated-video/references/pitfalls.md](skills/ja-narrated-video/references/pitfalls.md): 既知の症状と対処
+- [skills/ja-narrated-video/references/editorial-rules.md](skills/ja-narrated-video/references/editorial-rules.md): 編集方針と出す前の自己点検
+- [skills/ja-narrated-video/references/style-prefixes.md](skills/ja-narrated-video/references/style-prefixes.md): gpt-image-2 のスタイル接頭辞
+
+## 完成例
+- [examples/meetroom-30s](examples/meetroom-30s): 架空の会議室予約 SaaS「ヘヤマド」30 秒。BRIEF.md、STORYBOARD.md、site/（撮影用の画面 HTML）、.hyperframes/build_frames_meetroom.py（コマ生成）、renders/（mp4・SRT）、costs.jsonl
+- [skills/ja-narrated-video/references/worked-example.md](skills/ja-narrated-video/references/worked-example.md): その時間割とレイヤ指定
+
+## 解説と実測
+- [articles/claude-code-demo-video-hyperframes.md](articles/claude-code-demo-video-hyperframes.md): 解説記事（Zenn）
+- [docs/costs.md](docs/costs.md): 工程別の費用と時間、単価の出典
+
+## Optional
+- [.env.example](.env.example): Azure OpenAI と OpenAI API の設定例
+- [skills/generate-image/SKILL.md](skills/generate-image/SKILL.md): gpt-image-2 の単発・バッチ生成とプロンプト設計

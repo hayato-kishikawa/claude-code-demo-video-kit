@@ -1,0 +1,5 @@
+# BGM を MusicGen で作るときだけ（CPU で可、初回にモデル約 2.4GB をダウンロード）
+# facebook/musicgen-small の重みは CC-BY-NC 4.0（非商用）
+-r requirements.txt
+torch
+transformers>=4.40

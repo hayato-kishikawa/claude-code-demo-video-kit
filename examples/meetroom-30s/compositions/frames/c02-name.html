@@ -1,0 +1,51 @@
+<template>
+<style>
+
+@font-face{font-family:"Noto Sans JP";font-weight:400;src:url("assets/fonts/NotoSansJP-Regular.ttf") format("truetype");}
+@font-face{font-family:"Noto Sans JP";font-weight:500;src:url("assets/fonts/NotoSansJP-Medium.ttf") format("truetype");}
+@font-face{font-family:"Noto Sans JP";font-weight:700;src:url("assets/fonts/NotoSansJP-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans JP",sans-serif;font-feature-settings:"palt" 1;color:#16202E;}
+.c02-name-ground{background:#F5F7FB;}
+.c02-name-layer{position:absolute;inset:0;overflow:hidden;}
+.c02-name-outer{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;}
+.c02-name-inner{position:absolute;inset:0;will-change:transform;}
+.c02-name-img{position:absolute;left:0;top:0;width:1920px;height:1080px;display:block;}
+.c02-name-cover{position:absolute;box-sizing:border-box;}
+.c02-name-hl{position:absolute;box-sizing:border-box;border:3px solid #0F7B5F;border-radius:12px;background:rgba(15,123,95,0.06);transform-origin:50% 50%;opacity:0;will-change:transform,opacity;}
+.c02-name-card{position:absolute;overflow:hidden;border-radius:16px;border:1.5px solid rgba(15,123,95,0.22);background:#FFFFFF;transform-origin:50% 50%;will-change:transform,opacity;}
+.c02-name-paint{position:absolute;}
+.c02-name-say{position:absolute;background:rgba(255,255,255,0.96);border-radius:16px;padding:18px 28px;font-family:"Noto Sans JP",sans-serif;font-weight:500;color:#16202E;line-height:1.4;letter-spacing:-0.01em;transform-origin:50% 50%;opacity:0;box-sizing:border-box;}
+.c02-name-label{position:absolute;text-align:center;font-family:"Noto Sans JP",sans-serif;font-weight:700;color:#16202E;letter-spacing:-0.01em;}
+.c02-name-note{position:absolute;right:56px;top:46px;text-align:right;line-height:1.5;font-family:"IBM Plex Mono","Noto Sans JP",monospace;font-weight:500;font-size:22px;letter-spacing:0.06em;color:#4F5B6E;background:rgba(255,255,255,0.94);padding:7px 16px;border-radius:100px;white-space:nowrap;opacity:0;}
+.c02-name-note{top:auto;right:auto;left:40px;bottom:24px;font-size:18px;}
+</style>
+
+<div id="root" data-composition-id="c02-name" data-width="1920" data-height="1080">
+  <div class="clip c02-name-ground" id="c02-name-ground" data-start="0" data-duration="3" data-track-index="0"></div>
+  <div class="clip c02-name-layer" id="c02-name-L1" data-start="0" data-duration="3" data-track-index="1">
+    <div class="c02-name-outer" id="c02-name-L1o"><div class="c02-name-inner" id="c02-name-L1i">
+      <img class="c02-name-img" src="assets/ui/index.png" alt="">
+    </div></div>
+  </div>
+  <div class="clip" id="c02-name-noteclip" data-start="0" data-duration="3" data-track-index="9">
+    <div class="c02-name-note" id="c02-name-note">架空のサービスのデモ画面</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var ID="c02-name";
+  var q=function(k){return "#"+ID+"-"+k;};
+  var tl=gsap.timeline({paused:true});
+  tl.fromTo(q("L1o"), {scale:1}, {scale:1.05,duration:3,ease:"none"}, 0);
+  tl.fromTo(q("L1i"), {x:0,y:0}, {x:24,y:0,duration:3,ease:"none"}, 0);
+  tl.fromTo(q("note"), {opacity:0}, {opacity:1,duration:0.35,ease:"power1.out"}, 0.35);
+
+  window.__timelines=window.__timelines||{};
+  window.__timelines[ID]=tl;
+})();
+</script>
+</template>

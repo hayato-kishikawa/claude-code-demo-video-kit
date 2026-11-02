@@ -1,0 +1,53 @@
+<template>
+<style>
+
+@font-face{font-family:"Noto Sans JP";font-weight:400;src:url("assets/fonts/NotoSansJP-Regular.ttf") format("truetype");}
+@font-face{font-family:"Noto Sans JP";font-weight:500;src:url("assets/fonts/NotoSansJP-Medium.ttf") format("truetype");}
+@font-face{font-family:"Noto Sans JP";font-weight:700;src:url("assets/fonts/NotoSansJP-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans JP",sans-serif;font-feature-settings:"palt" 1;color:#16202E;}
+.c07-close-ground{background:#F5F7FB;}
+.c07-close-layer{position:absolute;inset:0;overflow:hidden;}
+.c07-close-outer{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;}
+.c07-close-inner{position:absolute;inset:0;will-change:transform;}
+.c07-close-img{position:absolute;left:0;top:0;width:1920px;height:1080px;display:block;}
+.c07-close-cover{position:absolute;box-sizing:border-box;}
+.c07-close-hl{position:absolute;box-sizing:border-box;border:3px solid #0F7B5F;border-radius:12px;background:rgba(15,123,95,0.06);transform-origin:50% 50%;opacity:0;will-change:transform,opacity;}
+.c07-close-card{position:absolute;overflow:hidden;border-radius:16px;border:1.5px solid rgba(15,123,95,0.22);background:#FFFFFF;transform-origin:50% 50%;will-change:transform,opacity;}
+.c07-close-paint{position:absolute;}
+.c07-close-say{position:absolute;background:rgba(255,255,255,0.96);border-radius:16px;padding:18px 28px;font-family:"Noto Sans JP",sans-serif;font-weight:500;color:#16202E;line-height:1.4;letter-spacing:-0.01em;transform-origin:50% 50%;opacity:0;box-sizing:border-box;}
+.c07-close-label{position:absolute;text-align:center;font-family:"Noto Sans JP",sans-serif;font-weight:700;color:#16202E;letter-spacing:-0.01em;}
+.c07-close-note{position:absolute;right:56px;top:46px;text-align:right;line-height:1.5;font-family:"IBM Plex Mono","Noto Sans JP",monospace;font-weight:500;font-size:22px;letter-spacing:0.06em;color:#4F5B6E;background:rgba(255,255,255,0.94);padding:7px 16px;border-radius:100px;white-space:nowrap;opacity:0;}
+
+.c07-close-ground{background:#F6F8F7;}
+.c07-close-lockup{position:absolute;left:0;right:0;top:380px;display:flex;align-items:center;justify-content:center;gap:40px;}
+.c07-close-mark{display:grid;grid-template-columns:repeat(2,92px);gap:18px;padding:26px;border-radius:36px;background:#1C2B25;}
+.c07-close-mark i{display:block;height:92px;border-radius:14px;background:#33453E;}
+.c07-close-name{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:120px;letter-spacing:0.02em;color:#14211C;}
+
+</style>
+
+<div id="root" data-composition-id="c07-close" data-width="1920" data-height="1080">
+  <div class="clip c07-close-ground" id="c07-close-ground" data-start="0" data-duration="2.6" data-track-index="0"></div>
+
+  <div class="c07-close-lockup">
+    <div class="c07-close-mark" id="c07-close-mark"><i></i><i id="c07-close-lit"></i><i></i><i></i></div>
+    <div class="c07-close-name" id="c07-close-name">ヘヤマド</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ID="c07-close";
+  var q=function(k){return "#"+ID+"-"+k;};
+  var tl=gsap.timeline({paused:true});
+
+  tl.fromTo(q("mark"), {opacity:0,scale:0.92}, {opacity:1,scale:1,duration:0.5,ease:"back.out(1.6)"}, 0.15);
+  tl.fromTo(q("lit"), {backgroundColor:"#33453E"}, {backgroundColor:"#7FD3B4",duration:0.35,ease:"power2.out"}, 0.55);
+  tl.fromTo(q("name"), {opacity:0,x:-16}, {opacity:1,x:0,duration:0.5,ease:"power3.out"}, 0.4);
+  window.__timelines=window.__timelines||{};
+  window.__timelines[ID]=tl;
+})();
+</script>
+</template>

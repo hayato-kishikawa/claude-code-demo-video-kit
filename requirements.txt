@@ -1,0 +1,5 @@
+# 動画づくりの必須（画像生成・TTS・字幕・コマ組み・抜き出し）
+websockets>=13
+numpy>=1.26
+soundfile>=0.12
+Pillow>=10

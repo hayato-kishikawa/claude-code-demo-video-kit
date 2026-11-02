@@ -1,0 +1,1 @@
+{"ts": "2026-11-02T18:54:57", "kind": "image", "provider": "azure", "name": "hero", "model": "gpt-image-2", "size": "2048x1152", "quality": "high", "wall_s": 74.2, "usage": {"input_tokens": 245, "input_tokens_details": {"image_tokens": 0, "text_tokens": 245}, "output_tokens": 5650, "output_tokens_details": {"image_tokens": 5650, "text_tokens": 0}, "total_tokens": 5895}}

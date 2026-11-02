@@ -1,0 +1,24 @@
+{
+ "out_dir": "assets/gen",
+ "size": "2048x1152",
+ "quality": "high",
+ "style": "Photorealistic location photography for a Japanese B2B software promo video, landscape 16:9, 2048x1152. Depict an anonymous modern Japanese mid-size company office, never an identifiable company. Morning front-light, soft daylight through windows, soft contrast, natural 35mm-film-like colors, a calm palette of off-white, warm wood and muted deep green (#0F7B5F) accents; no evening light or dramatic backlighting. All people are East Asian adults in business-casual clothing, with no identifiable faces: show backs, shoulders, hands, or distant rear-facing figures. No legible text anywhere; signage is blank or out of focus, documents contain only illegible abstract marks, screens show blank panels or soft abstract grids, keyboards have unmarked keys. No real company names, brands, logos, recognizable products, watermarks, or readable badges. Keep the lower 22%, y=78-100%, simple and free of important subjects or fine detail for video subtitles; use uncluttered floor or desk surfaces rather than darkening the image. Keep principal subjects within the side margins. No robots, holograms, sparkles, or decorative particles. Text (verbatim): [] means no visible text. STRICT TEXT RULE: never render titles, annotations, captions, footnotes, overlay text, logos, or any other legible characters. ",
+ "images": [
+  {
+   "name": "c01_corridor_a",
+   "prompt": "Scene: a long bright office corridor lined with glass-walled meeting rooms on the right; one person seen from behind walks away from the camera holding a closed laptop against the chest, slightly turning the head toward the glass rooms as if checking which one is free. Some rooms are occupied with blurred silhouettes, one room ahead is empty with warm light. Morning sun from the left windows. Composition: walker at center-left third, corridor vanishing point slightly right of center, lower 22% is plain light floor."
+  },
+  {
+   "name": "c01_corridor_b",
+   "prompt": "Scene: wide shot of an open-plan office floor in the morning; along the back wall a row of four glass-walled meeting rooms with wooden frames, two occupied with blurred figures, two empty and bright. In the foreground a person seen from behind, shoulder-level, carrying a laptop and a paper cup of coffee, walking toward the rooms. Plants and wooden shelves. Composition: rooms across the middle band, person at left third, lower 22% is plain floor."
+  },
+  {
+   "name": "c06_meeting_a",
+   "prompt": "Scene: inside a small glass-walled meeting room just as a meeting starts; over-the-shoulder view from behind two people sitting at a light wooden table, one opening a laptop, another placing a notebook and pen; across the table only hands and forearms of two more participants are visible, relaxed, one gesturing as if starting to talk. A wall-mounted screen shows a soft abstract green-and-white blank slide. Warm morning light. Composition: table across the middle, lower 22% is plain wooden table surface."
+  },
+  {
+   "name": "c06_meeting_b",
+   "prompt": "Scene: close view of hands around a light wooden meeting table as a discussion begins: one person's hands sliding a printed sheet with illegible marks toward another, a laptop half-open, two paper cups of coffee, a small plant. Participants' faces are out of frame; posture is relaxed and engaged. Glass wall and soft office bokeh in the background. Morning light. Composition: hands at center, lower 22% is plain table surface."
+  }
+ ]
+}

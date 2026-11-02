@@ -1,0 +1,60 @@
+{
+ "frames": [
+  [
+   "c01-morning",
+   0.0,
+   4.9
+  ],
+  [
+   "c02-name",
+   4.9,
+   3.0
+  ],
+  [
+   "c03-find",
+   7.9,
+   5.51
+  ],
+  [
+   "c04-book",
+   13.41,
+   5.28
+  ],
+  [
+   "c05-loop",
+   18.69,
+   5.26
+  ],
+  [
+   "c06-talk",
+   23.95,
+   3.13
+  ],
+  [
+   "c07-close",
+   27.08,
+   2.6
+  ]
+ ],
+ "total": 29.68,
+ "voice_dir": "assets/voice",
+ "voice_id": "prefix3",
+ "pre": 0.4,
+ "lead": 0.4,
+ "bgm": "assets/bgm/bed_30.mp3",
+ "bgm_keys": [
+  [
+   0,
+   0.2
+  ],
+  [
+   7.9,
+   0.16
+  ],
+  [
+   26.58,
+   0.26
+  ]
+ ],
+ "fonts": "assets/fonts/NotoSansJP-Medium.ttf"
+}
