@@ -44,7 +44,7 @@ published: false
 
 使う道具は次のとおりです。
 
-- **HyperFrames**：HTMLとGSAPのアニメーションをmp4に書き出すフレームワーク（HeyGenが公開しているOSS、Apache-2.0）。各コマをHTMLで書き、`check`で検査して`render`で書き出す
+- **HyperFrames**：HTMLとGSAPのアニメーションをmp4に書き出すフレームワーク（HeyGenが公開しているOSS、Apache-2.0で企業でも無料）。各コマをHTMLで書き、`check`で検査して`render`で書き出す
 - **gpt-image-2.5-flare**：立体の小物や写真の素材を作る（精度を優先するなら`gpt-image-2.5-sunburst`）
 - **gpt-realtime-2.1**：本来は音声対話用のモデルを、日本語ナレーションの読み上げ（TTS）として使う
 - **MusicGen small**：BGMの素材を作る（CPUで動く）
@@ -540,9 +540,15 @@ Claude Code自体の利用料は契約プランによるので、表には含め
 
 ### Remotionとの違いは何ですか？
 
-RemotionはReactのコンポーネントで動画を書くフレームワークで、HyperFramesはHTMLとGSAPのアニメーションで書きます。
+大きな違いはライセンスです。
+HyperFramesはApache-2.0なので、企業でも無料で使えます。
+Remotionは、個人、従業員3人までの営利企業、非営利団体、導入前の評価なら無料ですが、それ以外の企業が使うには有料のCompany Licenseが必要です（2026年11月時点の[Remotionのライセンス](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md)）。
+展示会や商談用の動画は会社の業務で作ることが多いので、この記事ではHyperFramesを使っています。
+
+書き方も違います。
+RemotionはReactのコンポーネントで動画を書き、HyperFramesはHTMLとGSAPのアニメーションで書きます。
+HyperFramesでは各コマを素のHTMLとして書けるので、ブラウザでそのまま確かめられます。
 筆者はRemotionでは作っていないので、仕上がりや速さは比べていません。
-HyperFramesを選んだのは、各コマを素のHTMLとして書けて、ブラウザでそのまま確かめられるからです。
 
 ### 画像生成には、どのモデルを使えばよいですか？
 
