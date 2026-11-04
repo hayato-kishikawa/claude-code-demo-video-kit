@@ -1,0 +1,25 @@
+{
+ "out_dir": "assets/gen/flare",
+ "size": "2048x1152",
+ "quality": "high",
+ "deployment": "gpt-image-2.5-flare",
+ "style": "Soft 3D render in a clean product-illustration style for a modern SaaS launch video, landscape 16:9, 2048x1152. Bright white background with a soft mint-to-sky-blue gradient glow (#E8FBF3 to #E6F4FF). Brand colors: emerald #10B981, deep green #0F7B5F, sky blue #38BDF8, off-white. Matte clay-like materials with a subtle gloss, rounded edges, soft studio lighting from the upper left, gentle soft contact shadows, objects float slightly. Minimal, cheerful, premium. Keep the lower 22%, y=78-100%, simple and free of important subjects for subtitles. No legible text, letters, numbers, logos, brand marks or watermarks anywhere; screens show only soft abstract shapes. No dark backgrounds, no neon, no night scenes, no harsh contrast, no robots, no holograms, no sparkles. Text (verbatim): []. STRICT TEXT RULE: never render titles, captions, annotations or any legible characters. ",
+ "images": [
+  {
+   "name": "s01_building_a",
+   "prompt": "Subject: an isometric miniature modern office building, four floors, each floor a row of square windows; about one third of the windows glow a soft bright mint as if lit from inside, the rest are pale grey glass. The building sits on the right half of the frame, slightly rotated, floating above a soft round shadow. The left half is empty white with the gradient glow, reserved for big text."
+  },
+  {
+   "name": "s01_building_b",
+   "prompt": "Subject: a cute rounded 3D cube-shaped office block made of small window tiles, several tiles glowing mint, a tiny emerald flag on top; placed on the right third of the frame on a floating pastel platform. The left two thirds are empty white space with a soft mint-to-sky gradient glow."
+  },
+  {
+   "name": "s04_calendar_a",
+   "prompt": "Subject: a floating 3D calendar card with a large emerald check-mark badge on its corner, next to a small rounded meeting chair and a tiny round table, composed as a small cluster in the right third of the frame; generous empty white space on the left two thirds."
+  },
+  {
+   "name": "s04_calendar_b",
+   "prompt": "Subject: a 3D rounded calendar page with a bright emerald circle check badge popping out, a small paper-plane icon flying from it with a soft dotted trail, positioned in the right third; the rest of the frame is empty white with a soft gradient glow."
+  }
+ ]
+}

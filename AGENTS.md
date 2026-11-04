@@ -13,6 +13,7 @@
 | API 費用 | 30 秒・写真 4 枚・ナレーション 7 行で **約 0.23 米ドル**（`docs/costs.md`）。画像は 2048×1152・high で 1 枚 約 0.044 ドル。作り直すたびに増える |
 | 所要時間 | 生成 API の待ちは合計 約 1 分。レンダは 30 秒動画で 約 80 秒。CPU で BGM を作ると 約 6 分。作者の実測では、画面 4 枚の作成と修正 2 回を含めて 約 20 分 |
 | 動画の中身 | 誰に・どこで流すか（展示会のループか商談の冒頭か）、尺、言いたいこと 1 つ、出してよい社名・製品名・固有名 |
+| テイスト | 落ち着いた説明調（calm）か、明るい SaaS のローンチ調（saas-bright）か。近い既存の動画や LP、避けたいもの（ダーク、ネオン、顔など）。`skills/ja-narrated-video/references/taste.md` |
 | 素材の権利 | 実画面を撮る対象は利用者に権利があるか。他社サイトやロゴは使わない |
 | BGM | 既定の MusicGen は重みが **CC-BY-NC 4.0（非商用）**。商用の動画なら、利用者が用意したロイヤリティフリー音源に差し替えるか BGM なしにする |
 
@@ -44,7 +45,7 @@ mkdir -p .claude/skills && cp -r skills/ja-narrated-video skills/generate-image 
 
 ## 3. 手順
 
-詳細は `skills/ja-narrated-video/SKILL.md`。新しい動画は `examples/meetroom-30s/` を丸ごとコピーして始めるのが早いです。
+詳細は `skills/ja-narrated-video/SKILL.md`。新しい動画は、テイストに近い例（落ち着いた説明調なら `examples/meetroom-30s/`、明るい SaaS 調なら `examples/meetroom-30s-saas/`）を丸ごとコピーして始めるのが早いです。
 
 ```bash
 cp -r examples/meetroom-30s examples/<name> && cd examples/<name>

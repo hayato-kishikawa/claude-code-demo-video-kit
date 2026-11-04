@@ -12,7 +12,7 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
 - 既存の実写 MP4 に字幕を焼く → HyperFrames の `/embedded-captions`
 
 ## 始める前に（必須）
-1. 依頼者に確認する（リポ直下の `AGENTS.md`「着手前の確認」）：接続先と費用、尺、見る人と流す場所、出してよい名称、BGM の権利。
+1. 依頼者に確認する（リポ直下の `AGENTS.md`「着手前の確認」）：接続先と費用、尺、見る人と流す場所、出してよい名称、BGM の権利、**テイスト**（[references/taste.md](references/taste.md) のプリセット calm／saas-bright から選んでもらう）。
 2. 対象プロジェクトの `BRIEF.md`（`## vN` 節に過去の判断）と `STORYBOARD.md` を読む。無ければ作る（雛形は `examples/meetroom-30s/`）。
 3. [references/editorial-rules.md](references/editorial-rules.md) を読む。BRIEF.md に書かれた禁止事項に反する提案はしない。
 4. `.env` を読み込む: `set -a && . <repo>/.env && set +a`。画像生成と TTS はこれ無しで止まる。
@@ -34,7 +34,7 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
 ⑧ 記録    $SK/export_srt.py → renders/<name>.ja.srt、$SK/cost_report.py、STORYBOARD/BRIEF 更新、旧版を renders/<name>_vN.mp4 へ
 ```
 
-各段の細部（レイヤのキー、字幕規則、BGM 音量、render コマンド）は [references/authoring.md](references/authoring.md)。画像のスタイル接頭辞は [references/style-prefixes.md](references/style-prefixes.md)。完成形の時間割とコマ仕様は [references/worked-example.md](references/worked-example.md)。
+テイスト（地と光、被写体、実画面の見せ方、文字、動き、転換、音、声）の決め方と変える場所は [references/taste.md](references/taste.md)。各段の細部（レイヤのキー、字幕規則、BGM 音量、render コマンド）は [references/authoring.md](references/authoring.md)。画像のスタイル接頭辞は [references/style-prefixes.md](references/style-prefixes.md)。完成形の時間割とコマ仕様は [references/worked-example.md](references/worked-example.md)。
 
 ## 判断のしかた（ここだけは本文に置く）
 - **画面の文字は字幕に一元化。** 見出しテロップ・左上の常駐ラベルは作らない。字幕は 1 行 30 字以内。

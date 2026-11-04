@@ -1,14 +1,16 @@
 """gpt-realtime-2.1 を TTS として使い、1 文を 24kHz mono の wav にする。接続先は _client.py（PROVIDER）。
-使い方: python3 rt_tts.py "読み上げ文" out.wav [voice=marin]"""
+使い方: python3 rt_tts.py "読み上げ文" out.wav [voice=marin]
+声の調子: 環境変数 TTS_STYLE（既定「落ち着いた明瞭なナレーション調」）。SaaS の広告調なら「明るく軽快で、歯切れのよいナレーション調」など"""
 import asyncio, json, base64, os, sys, time, wave
 import websockets
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import _client
+STYLE = os.environ.get("TTS_STYLE", "落ち着いた明瞭なナレーション調")
 async def tts(text, out, voice="marin"):
     t0 = time.time(); usage = None
     async with websockets.connect(_client.realtime_url(), additional_headers=_client.headers(), max_size=None) as ws:
         await ws.send(json.dumps({"type":"session.update","session":{"type":"realtime","output_modalities":["audio"],
-            "instructions":"あなたはナレーターです。ユーザーが送る日本語の文章を、一字一句そのまま、落ち着いた明瞭なナレーション調で読み上げてください。前置き・相槌・追加の言葉は一切禁止。",
+            "instructions":"あなたはナレーターです。ユーザーが送る日本語の文章を、一字一句そのまま、"+STYLE+"で読み上げてください。前置き・相槌・追加の言葉は一切禁止。",
             "audio":{"output":{"voice":voice,"format":{"type":"audio/pcm","rate":24000}}}}}))
         await ws.send(json.dumps({"type":"conversation.item.create","item":{"type":"message","role":"user","content":[{"type":"input_text","text":text}]}}))
         await ws.send(json.dumps({"type":"response.create"}))

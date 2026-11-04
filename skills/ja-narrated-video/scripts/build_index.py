@@ -10,7 +10,11 @@ index_config.json の例:
   "lead": 0.6,                           # コマ開始からナレーション開始までの間
   "bgm": "assets/bgm/bed_101.mp3",
   "bgm_keys": [[0,0.26],[18,0.22],[21,0.15],[96,0.24]],   # [秒, 音量]。先頭は set、以降は 2 秒の to
-  "fonts": "assets/fonts/NotoSansJP-Medium.ttf"
+  "fonts": "assets/fonts/NotoSansJP-Medium.ttf",
+  "transition": "blur",                  # 任意: blur（ぼかしのクロスフェード、落ち着いた説明向け）| push（横に押し出す）| zoom（寄りながら切り替え）
+  "trans_dur": 0.5,                      # 任意: 転換の秒数。テンポを上げるなら 0.3 前後
+  "ground": "#F5F7FB",                   # 任意: 地の色
+  "caption_skip": ["c01"]                # 任意: 字幕を出さない音声 id（画面に大きな文字で同じ言葉を出すコマ）
 }
 字幕は下中央（left/right 240px, bottom 62px）、44px/500 の白ピル。1 行 30 字以内は build_captions.py 側で保証する。"""
 import json, sys
@@ -22,6 +26,12 @@ caps = json.load(open(f"{VD}/captions.json")); vm = json.load(open(f"{VD}/voice_
 vid_of = (lambda fid: fid[:3]) if C.get("voice_id", "prefix3") == "prefix3" else (lambda fid: fid)
 
 slots, tl, audio, capdivs, capjs = [], [], [], [], []
+TR = C.get("transition", "blur"); TD = C.get("trans_dur", 0.5); GROUND = C.get("ground", "#F5F7FB")
+TRANS = {  # (前のコマの to, 次のコマの from, 次のコマの to)
+  "blur": ('filter: "blur(14px)", scale: 1.03, opacity: 0', 'filter: "blur(14px)", scale: 0.97, opacity: 0', 'filter: "blur(0px)", scale: 1, opacity: 1'),
+  "push": ('xPercent: -100', 'xPercent: 100', 'xPercent: 0'),
+  "zoom": ('scale: 1.15, opacity: 0', 'scale: 0.85, opacity: 0', 'scale: 1, opacity: 1'),
+}[TR]
 for i, (fid, start, dur) in enumerate(FRAMES):
     s = start if i == 0 else start - PRE
     d = dur if i == 0 else dur + PRE
@@ -30,13 +40,15 @@ for i, (fid, start, dur) in enumerate(FRAMES):
                  f'data-track-index="{i%2}" data-width="1920" data-height="1080"></div>')
     if i > 0:
         prev = FRAMES[i - 1][0]; T = start
-        tl.append(f'      tl.to("#el-{prev}", {{ filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }}, {T-PRE:g});')
-        tl.append(f'      tl.fromTo("#el-{fid}", {{ filter: "blur(14px)", scale: 0.97, opacity: 0 }}, {{ filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }}, {T-PRE+0.08:g});')
+        ease = "power2.inOut" if TR == "blur" else "power3.inOut"
+        tl.append(f'      tl.to("#el-{prev}", {{ {TRANS[0]}, duration: {TD}, ease: "{ease}" }}, {T-PRE:g});')
+        tl.append(f'      tl.set("#el-{prev}", {{ opacity: 0 }}, {T-PRE+TD:g});')
+        tl.append(f'      tl.fromTo("#el-{fid}", {{ {TRANS[1]} }}, {{ {TRANS[2]}, duration: {TD}, ease: "{ease}" }}, {T-PRE+(0.08 if TR == "blur" else 0):g});')
     vid = vid_of(fid)
     if vid in vm:
         audio.append(f'      <audio id="el-vo-{vid}" src="{vm[vid]["path"]}" data-start="{start+LEAD:g}" '
                      f'data-duration="{vm[vid]["duration_s"]}" data-track-index="20" data-volume="1"></audio>')
-        for k, c in enumerate(caps.get(vid, [])):
+        for k, c in enumerate([] if vid in C.get("caption_skip", []) else caps.get(vid, [])):
             cid = f"cap-{vid}-{k}"; a = start + LEAD + c["start"]; b = start + LEAD + c["end"]
             capdivs.append(f'      <div class="cap" id="{cid}"><span>{c["text"]}</span></div>')
             capjs.append(f'      tl.set("#{cid}", {{ opacity: 0 }}, 0);')
@@ -57,8 +69,8 @@ html = f'''<!DOCTYPE html>
     <style>
       @font-face{{font-family:"Noto Sans JP";font-weight:500;src:url("{C.get("fonts","assets/fonts/NotoSansJP-Medium.ttf")}") format("truetype");}}
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-      html, body {{ width: 1920px; height: 1080px; overflow: hidden; background: #F5F7FB; }}
-      #root {{ position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F5F7FB; }}
+      html, body {{ width: 1920px; height: 1080px; overflow: hidden; background: {GROUND}; }}
+      #root {{ position: relative; width: 1920px; height: 1080px; overflow: hidden; background: {GROUND}; }}
       #root > .scene {{ position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 50% 50%; }}
       /* 字幕：ナレーション全文。位置は全編固定 */
       .cap {{ position: absolute; left: 240px; right: 240px; bottom: 62px; text-align: center; z-index: 50; opacity: 0; }}
@@ -76,7 +88,7 @@ html = f'''<!DOCTYPE html>
     <script>
       window.__timelines = window.__timelines || {{}};
       var tl = gsap.timeline({{ paused: true }});
-      // 場面転換：blur crossfade（calm）で統一
+      // 場面転換：{TR}（{TD} 秒）
 {chr(10).join(tl)}
       // 字幕（無音検出で境界を音声に合わせてある）
 {chr(10).join(capjs)}

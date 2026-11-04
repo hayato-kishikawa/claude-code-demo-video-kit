@@ -7,7 +7,8 @@ Claude Code に、展示会や商談で流す **日本語ナレーション・�
 
 - 解説記事：[articles/claude-code-demo-video-hyperframes.md](articles/claude-code-demo-video-hyperframes.md)（Zenn）
 - AI エージェント向けの手順：[AGENTS.md](AGENTS.md)
-- 完成例：[examples/meetroom-30s](examples/meetroom-30s)（架空の会議室予約 SaaS「ヘヤマド」の 30 秒動画、mp4 と SRT は `renders/`）
+- 完成例：[examples/meetroom-30s](examples/meetroom-30s)（架空の会議室予約 SaaS「ヘヤマド」の 30 秒動画、落ち着いた説明調、mp4 と SRT は `renders/`）と、同じ題材を明るい SaaS 調にした [examples/meetroom-30s-saas](examples/meetroom-30s-saas)
+- テイストの決め方：[skills/ja-narrated-video/references/taste.md](skills/ja-narrated-video/references/taste.md)
 - 費用と時間の実測：[docs/costs.md](docs/costs.md)（30 秒 1 本で API 約 0.23 米ドル）
 
 ## クイックスタート

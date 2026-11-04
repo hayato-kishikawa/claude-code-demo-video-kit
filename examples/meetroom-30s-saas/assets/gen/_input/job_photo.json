@@ -1,0 +1,17 @@
+{
+ "out_dir": "assets/gen/flare",
+ "size": "2048x1152",
+ "quality": "high",
+ "deployment": "gpt-image-2.5-flare",
+ "style": "Bright high-key lifestyle photography for a modern Japanese SaaS startup promo video, landscape 16:9, 2048x1152. Airy open office with white walls, light oak wood, plants and small mint-green accents (#10B981), large windows with soft daylight, slightly warm, clean and optimistic; shallow depth of field. All people are East Asian adults in smart-casual clothes, energetic and relaxed, shown from behind, over the shoulder, or as hands, never with identifiable faces. Keep the lower 22%, y=78-100%, simple and free of important subjects for subtitles. No legible text, letters, numbers, logos, brand marks or watermarks anywhere; screens show only soft abstract shapes. No dark backgrounds, no neon, no night scenes, no harsh contrast, no robots, no holograms, no sparkles. Text (verbatim): []. STRICT TEXT RULE: never render titles, captions, annotations or any legible characters. ",
+ "images": [
+  {
+   "name": "s06_team_a",
+   "prompt": "Scene: a small team gathers around a light oak standing table in a bright glass meeting room, one person gestures toward a laptop while two others lean in, relaxed laughter in their body language; seen over the shoulder from behind. Composition: people in the middle band, lower 22% is plain table and floor."
+  },
+  {
+   "name": "s06_team_b",
+   "prompt": "Scene: two colleagues walk side by side into a sunlit meeting room carrying laptops and coffee, seen from behind, a third person already inside waves them in (hand only visible); mint-green chairs. Composition: walkers center-left, room on the right, lower 22% is plain light floor."
+  }
+ ]
+}

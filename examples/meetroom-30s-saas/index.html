@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face{font-family:"Noto Sans JP";font-weight:500;src:url("assets/fonts/NotoSansJP-Medium.ttf") format("truetype");}
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #FFFFFF; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #FFFFFF; }
+      #root > .scene { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 50% 50%; }
+      /* 字幕：ナレーション全文。位置は全編固定 */
+      .cap { position: absolute; left: 240px; right: 240px; bottom: 62px; text-align: center; z-index: 50; opacity: 0; }
+      .cap span { display: inline-block; background: rgba(245,247,251,0.94); border-radius: 14px;
+        padding: 16px 32px; font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 44px;
+        line-height: 1.45; letter-spacing: -0.01em; color: #16202E; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26.56" data-width="1920" data-height="1080">
+      <div id="el-c01-hook" class="scene" style="z-index:1" data-composition-id="c01-hook" data-composition-src="compositions/frames/c01-hook.html" data-start="0" data-duration="4.05" data-track-index="0" data-width="1920" data-height="1080"></div>
+      <div id="el-c02-name" class="scene" style="z-index:2" data-composition-id="c02-name" data-composition-src="compositions/frames/c02-name.html" data-start="3.7" data-duration="3.35" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-c03-find" class="scene" style="z-index:3" data-composition-id="c03-find" data-composition-src="compositions/frames/c03-find.html" data-start="6.7" data-duration="6.19" data-track-index="0" data-width="1920" data-height="1080"></div>
+      <div id="el-c04-book" class="scene" style="z-index:4" data-composition-id="c04-book" data-composition-src="compositions/frames/c04-book.html" data-start="12.54" data-duration="4.77" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-c05-loop" class="scene" style="z-index:5" data-composition-id="c05-loop" data-composition-src="compositions/frames/c05-loop.html" data-start="16.96" data-duration="3.71" data-track-index="0" data-width="1920" data-height="1080"></div>
+      <div id="el-c06-talk" class="scene" style="z-index:6" data-composition-id="c06-talk" data-composition-src="compositions/frames/c06-talk.html" data-start="20.32" data-duration="3.64" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-c07-close" class="scene" style="z-index:7" data-composition-id="c07-close" data-composition-src="compositions/frames/c07-close.html" data-start="23.61" data-duration="2.95" data-track-index="0" data-width="1920" data-height="1080"></div>
+      <div class="cap" id="cap-c02-0"><span>会議室予約の、ヘヤマド。</span></div>
+      <div class="cap" id="cap-c03-0"><span>人数と時間を選ぶだけ。</span></div>
+      <div class="cap" id="cap-c03-1"><span>空いている部屋が、ぱっと灯ります。</span></div>
+      <div class="cap" id="cap-c04-0"><span>予約はワンクリック。</span></div>
+      <div class="cap" id="cap-c04-1"><span>予定表にも、すぐ届きます。</span></div>
+      <div class="cap" id="cap-c05-0"><span>使われない予約は、自動で解放。</span></div>
+      <div class="cap" id="cap-c06-0"><span>探す時間を、話す時間に。</span></div>
+      <audio id="el-vo-c01" src="assets/voice/c01.wav" data-start="0.35" data-duration="3.401" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c02" src="assets/voice/c02.wav" data-start="4.4" data-duration="2.185" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c03" src="assets/voice/c03.wav" data-start="7.4" data-duration="5.189" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c04" src="assets/voice/c04.wav" data-start="13.24" data-duration="3.769" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c05" src="assets/voice/c05.wav" data-start="17.66" data-duration="2.715" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c06" src="assets/voice/c06.wav" data-start="21.02" data-duration="2.644" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-vo-c07" src="assets/voice/c07.wav" data-start="24.31" data-duration="0.671" data-track-index="20" data-volume="1"></audio>
+      <audio id="el-bgm" src="assets/bgm/bed_27.mp3" data-start="0" data-duration="26.56" data-track-index="30" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      // 場面転換：push（0.35 秒）
+      tl.to("#el-c01-hook", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 3.7);
+      tl.set("#el-c01-hook", { opacity: 0 }, 4.05);
+      tl.fromTo("#el-c02-name", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 3.7);
+      tl.to("#el-c02-name", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 6.7);
+      tl.set("#el-c02-name", { opacity: 0 }, 7.05);
+      tl.fromTo("#el-c03-find", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 6.7);
+      tl.to("#el-c03-find", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 12.54);
+      tl.set("#el-c03-find", { opacity: 0 }, 12.89);
+      tl.fromTo("#el-c04-book", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 12.54);
+      tl.to("#el-c04-book", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 16.96);
+      tl.set("#el-c04-book", { opacity: 0 }, 17.31);
+      tl.fromTo("#el-c05-loop", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 16.96);
+      tl.to("#el-c05-loop", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 20.32);
+      tl.set("#el-c05-loop", { opacity: 0 }, 20.67);
+      tl.fromTo("#el-c06-talk", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 20.32);
+      tl.to("#el-c06-talk", { xPercent: -100, duration: 0.35, ease: "power3.inOut" }, 23.61);
+      tl.set("#el-c06-talk", { opacity: 0 }, 23.96);
+      tl.fromTo("#el-c07-close", { xPercent: 100 }, { xPercent: 0, duration: 0.35, ease: "power3.inOut" }, 23.61);
+      // 字幕（無音検出で境界を音声に合わせてある）
+      tl.set("#cap-c02-0", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c02-0", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 4.4);
+      tl.to("#cap-c02-0", { opacity: 0, duration: 0.14, ease: "power1.in" }, 6.445);
+      tl.set("#cap-c03-0", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c03-0", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 7.4);
+      tl.to("#cap-c03-0", { opacity: 0, duration: 0.14, ease: "power1.in" }, 9.66);
+      tl.set("#cap-c03-1", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c03-1", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 9.8);
+      tl.to("#cap-c03-1", { opacity: 0, duration: 0.14, ease: "power1.in" }, 12.449);
+      tl.set("#cap-c04-0", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c04-0", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 13.24);
+      tl.to("#cap-c04-0", { opacity: 0, duration: 0.14, ease: "power1.in" }, 14.64);
+      tl.set("#cap-c04-1", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c04-1", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 14.78);
+      tl.to("#cap-c04-1", { opacity: 0, duration: 0.14, ease: "power1.in" }, 16.869);
+      tl.set("#cap-c05-0", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c05-0", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 17.66);
+      tl.to("#cap-c05-0", { opacity: 0, duration: 0.14, ease: "power1.in" }, 20.235);
+      tl.set("#cap-c06-0", { opacity: 0 }, 0);
+      tl.fromTo("#cap-c06-0", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.out" }, 21.02);
+      tl.to("#cap-c06-0", { opacity: 0, duration: 0.14, ease: "power1.in" }, 23.524);
+      // BGM：絶対値キーフレーム
+      tl.set("#el-bgm", { volume: 0.3 }, 0);
+      tl.to("#el-bgm", { volume: 0.24, duration: 2, ease: "power1.inOut" }, 4.05);
+      tl.to("#el-bgm", { volume: 0.4, duration: 2, ease: "power1.inOut" }, 23.56);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

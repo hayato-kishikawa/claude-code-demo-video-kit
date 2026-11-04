@@ -9,10 +9,12 @@
 - [skills/ja-narrated-video/SKILL.md](skills/ja-narrated-video/SKILL.md): 工程①〜⑧とスクリプト一覧
 - [skills/ja-narrated-video/references/authoring.md](skills/ja-narrated-video/references/authoring.md): コマのレイヤ指定、字幕、BGM、レンダの細部
 - [skills/ja-narrated-video/references/pitfalls.md](skills/ja-narrated-video/references/pitfalls.md): 既知の症状と対処
+- [skills/ja-narrated-video/references/taste.md](skills/ja-narrated-video/references/taste.md): テイスト（地と光、被写体、実画面の見せ方、文字、動き、転換、音、声）の決め方とプリセット
 - [skills/ja-narrated-video/references/editorial-rules.md](skills/ja-narrated-video/references/editorial-rules.md): 編集方針と出す前の自己点検
 - [skills/ja-narrated-video/references/style-prefixes.md](skills/ja-narrated-video/references/style-prefixes.md): gpt-image-2.5 のスタイル接頭辞
 
 ## 完成例
+- [examples/meetroom-30s-saas](examples/meetroom-30s-saas): 同じ題材を明るい SaaS のローンチ調にした版（立体の小物、浮かぶ画面カード、大きな文字、明るいビート）
 - [examples/meetroom-30s](examples/meetroom-30s): 架空の会議室予約 SaaS「ヘヤマド」30 秒。BRIEF.md、STORYBOARD.md、site/（撮影用の画面 HTML）、.hyperframes/build_frames_meetroom.py（コマ生成）、renders/（mp4・SRT）、costs.jsonl
 - [skills/ja-narrated-video/references/worked-example.md](skills/ja-narrated-video/references/worked-example.md): その時間割とレイヤ指定
 

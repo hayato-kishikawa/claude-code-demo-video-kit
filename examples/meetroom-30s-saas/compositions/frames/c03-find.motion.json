@@ -1,0 +1,17 @@
+{
+ "scene": "c03-find",
+ "duration_s": 5.84,
+ "rules": [
+  "viewport-change",
+  "spring-pop-entrance",
+  "discrete-text-sequence"
+ ],
+ "exit": {
+  "vector": "slow ken-burns push, <10 px/s",
+  "still_moving": true
+ },
+ "entry": {
+  "vector": "from rest",
+  "from_rest": true
+ }
+}

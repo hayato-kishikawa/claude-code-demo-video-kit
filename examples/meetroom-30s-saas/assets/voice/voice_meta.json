@@ -1,0 +1,44 @@
+{
+ "c01": {
+  "path": "assets/voice/c01.wav",
+  "duration_s": 3.401,
+  "text": "会議室は、探すものから、すぐ見つかるものへ。",
+  "atempo": 1.15
+ },
+ "c02": {
+  "path": "assets/voice/c02.wav",
+  "duration_s": 2.185,
+  "text": "会議室予約の、ヘヤマド。",
+  "atempo": 1.15
+ },
+ "c03": {
+  "path": "assets/voice/c03.wav",
+  "duration_s": 5.189,
+  "text": "人数と時間を選ぶだけ。空いている部屋が、ぱっと灯ります。",
+  "atempo": 1.15
+ },
+ "c04": {
+  "path": "assets/voice/c04.wav",
+  "duration_s": 3.769,
+  "text": "予約はワンクリック。予定表にも、すぐ届きます。",
+  "atempo": 1.15
+ },
+ "c05": {
+  "path": "assets/voice/c05.wav",
+  "duration_s": 2.715,
+  "text": "使われない予約は、自動で解放。",
+  "atempo": 1.15
+ },
+ "c06": {
+  "path": "assets/voice/c06.wav",
+  "duration_s": 2.644,
+  "text": "探す時間を、話す時間に。",
+  "atempo": 1.15
+ },
+ "c07": {
+  "path": "assets/voice/c07.wav",
+  "duration_s": 0.671,
+  "text": "ヘヤマド。",
+  "atempo": 1.15
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "scene": "c06-talk",
+ "duration_s": 3.29,
+ "rules": [
+  "viewport-change",
+  "spring-pop-entrance",
+  "discrete-text-sequence"
+ ],
+ "exit": {
+  "vector": "slow ken-burns push, <10 px/s",
+  "still_moving": true
+ },
+ "entry": {
+  "vector": "from rest",
+  "from_rest": true
+ }
+}

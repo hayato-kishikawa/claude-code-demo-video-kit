@@ -47,18 +47,24 @@
     <script>
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
-      // 場面転換：blur crossfade（calm）で統一
+      // 場面転換：blur（0.5 秒）
       tl.to("#el-c01-morning", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 4.55);
+      tl.set("#el-c01-morning", { opacity: 0 }, 5.05);
       tl.fromTo("#el-c02-name", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 4.63);
       tl.to("#el-c02-name", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 7.68);
+      tl.set("#el-c02-name", { opacity: 0 }, 8.18);
       tl.fromTo("#el-c03-find", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 7.76);
       tl.to("#el-c03-find", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 13.21);
+      tl.set("#el-c03-find", { opacity: 0 }, 13.71);
       tl.fromTo("#el-c04-book", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 13.29);
       tl.to("#el-c04-book", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 18.41);
+      tl.set("#el-c04-book", { opacity: 0 }, 18.91);
       tl.fromTo("#el-c05-loop", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 18.49);
       tl.to("#el-c05-loop", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 23.93);
+      tl.set("#el-c05-loop", { opacity: 0 }, 24.43);
       tl.fromTo("#el-c06-talk", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 24.01);
       tl.to("#el-c06-talk", { filter: "blur(14px)", scale: 1.03, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 27.18);
+      tl.set("#el-c06-talk", { opacity: 0 }, 27.68);
       tl.fromTo("#el-c07-close", { filter: "blur(14px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.5, ease: "power2.inOut" }, 27.26);
       // 字幕（無音検出で境界を音声に合わせてある）
       tl.set("#cap-c01-0", { opacity: 0 }, 0);

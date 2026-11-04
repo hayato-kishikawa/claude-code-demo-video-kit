@@ -1,0 +1,67 @@
+{
+ "frames": [
+  [
+   "c01-hook",
+   0.0,
+   4.05
+  ],
+  [
+   "c02-name",
+   4.05,
+   3.0
+  ],
+  [
+   "c03-find",
+   7.05,
+   5.84
+  ],
+  [
+   "c04-book",
+   12.89,
+   4.42
+  ],
+  [
+   "c05-loop",
+   17.31,
+   3.36
+  ],
+  [
+   "c06-talk",
+   20.67,
+   3.29
+  ],
+  [
+   "c07-close",
+   23.96,
+   2.6
+  ]
+ ],
+ "total": 26.56,
+ "voice_dir": "assets/voice",
+ "voice_id": "prefix3",
+ "pre": 0.35,
+ "lead": 0.35,
+ "bgm": "assets/bgm/bed_27.mp3",
+ "bgm_keys": [
+  [
+   0,
+   0.3
+  ],
+  [
+   4.05,
+   0.24
+  ],
+  [
+   23.560000000000002,
+   0.4
+  ]
+ ],
+ "fonts": "assets/fonts/NotoSansJP-Medium.ttf",
+ "transition": "push",
+ "trans_dur": 0.35,
+ "ground": "#FFFFFF",
+ "caption_skip": [
+  "c01",
+  "c07"
+ ]
+}
