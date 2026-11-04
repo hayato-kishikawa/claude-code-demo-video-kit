@@ -43,7 +43,8 @@ cd examples/meetroom-30s-saas && npm run check && npm run render
 ## ライセンス
 
 - このリポのコードと文書：MIT（[LICENSE](LICENSE)）
-- HyperFrames：Apache-2.0（npm から取得。このリポには含めていません）
+- HyperFrames：Apache-2.0（本体とエージェント用スキルは npm から取得。このリポジトリには含めていません。`gen_bgm.py` の一部だけ HyperFrames のコードを元に改変しています）
+- 第三者の権利表示の一覧：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 - 同梱フォント（`examples/*/assets/fonts/`）：Noto Sans JP、IBM Plex Mono（SIL Open Font License 1.1、ライセンス文を同梱）
 - 完成例の BGM（`examples/*/assets/bgm/`）：MusicGen small で生成。モデルの重みは CC-BY-NC 4.0 のため、非商用のサンプルとして扱ってください。商用の動画ではロイヤリティフリー音源に差し替えてください
 - 完成例の写真と音声：Azure OpenAI の `gpt-image-2.5-flare` と `gpt-realtime-2.1` で生成（比較用に `gpt-image-2` と `gpt-image-2.5-sunburst` の画像も `assets/gen/` に同梱）

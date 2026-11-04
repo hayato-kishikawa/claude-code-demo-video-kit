@@ -3,7 +3,13 @@
   calm  : 静かな単音ピアノ → 温かいピアノと弦（説明・展示向け）
   upbeat: 軽いシンセのイントロ → 明るいポップなビート（SaaS のローンチ・広告向け）
 注意: facebook/musicgen-small の重みは CC-BY-NC 4.0（非商用）。商用の動画ではロイヤリティフリー音源を
-      assets/bgm/seed_a.wav / seed_b.wav に置き換えるか、ベッドそのもの（bed_<尺>.mp3）を差し替える。"""
+      assets/bgm/seed_a.wav / seed_b.wav に置き換えるか、ベッドそのもの（bed_<尺>.mp3）を差し替える。
+出典: MusicGen を読み込み、生成した波形を取り出してピークを正規化する部分は、HyperFrames
+      （https://github.com/heygen-com/hyperframes 、Apache License 2.0）の
+      skills/media-use/audio/scripts/lib/bgm.mjs に含まれる Python を元に改変した。
+      変更点: 素材を 2 本（seed_a / seed_b）作る形にし、プリセット（calm / upbeat）、サンプリング指定
+      （do_sample, guidance_scale）、出力先の引数を追加。目標尺への切り詰めとループはこのファイルから外し、
+      make_bed.py に分けた。ライセンス文は licenses/hyperframes-Apache-2.0.txt。"""
 import math, os, sys, time, traceback
 import numpy as np, soundfile as sf
 from transformers import MusicgenForConditionalGeneration, AutoProcessor

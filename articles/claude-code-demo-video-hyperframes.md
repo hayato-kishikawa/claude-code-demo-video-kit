@@ -99,7 +99,7 @@ APIの費用が発生し、生成物の権利にも関わるためです。
 5. 完了の条件：`npm run check`が0 error、抜き出したコマを目視して字幕が1行で画面と重なっていない、音量が−16〜−12 LUFS。利用者にはmp4、SRT、費用の実測（`cost_report.py`）、未確認の点（発音、名称、権利）を報告する。
 6. `.env`や鍵をコミットしない。実在の企業、人物、サービスに見えるもの（ロゴ、サイトの模写、実在人物の顔）を作らない。
 
-ライセンス：HyperFramesはApache-2.0、同梱フォント（Noto Sans JP、IBM Plex Mono）はSIL OFL 1.1、リポジトリのコードはMITです。
+ライセンス：HyperFramesはApache-2.0、同梱フォント（Noto Sans JP、IBM Plex Mono）はSIL OFL 1.1、リポジトリのコードはMITです（`gen_bgm.py`の一部はHyperFramesのコードを元に改変したもので、Apache-2.0です。一覧は`THIRD_PARTY_NOTICES.md`）。HyperFramesのエージェント用スキルは同梱していないので、必要なら配布元から入れてください。
 :::
 
 ## 準備

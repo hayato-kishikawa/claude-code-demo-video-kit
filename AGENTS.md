@@ -17,7 +17,7 @@
 | 素材の権利 | 実画面を撮る対象は利用者に権利があるか。他社サイトやロゴは使わない |
 | BGM | 既定の MusicGen は重みが **CC-BY-NC 4.0（非商用）**。商用の動画なら、利用者が用意したロイヤリティフリー音源に差し替えるか BGM なしにする |
 
-ライセンスの一覧：HyperFrames は Apache-2.0、同梱フォント（Noto Sans JP・IBM Plex Mono）は SIL OFL 1.1、このリポのコードは MIT。生成した画像・音声の扱いは各 API の利用規約に従う。
+ライセンスの一覧：HyperFrames は Apache-2.0、同梱フォント（Noto Sans JP・IBM Plex Mono）は SIL OFL 1.1、このリポのコードは MIT（`gen_bgm.py` の一部は HyperFrames 由来で Apache-2.0。`THIRD_PARTY_NOTICES.md`）。HyperFrames のエージェント用スキルは同梱していない。生成した画像・音声の扱いは各 API の利用規約に従う。
 
 ## 2. 環境
 
