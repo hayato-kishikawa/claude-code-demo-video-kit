@@ -4,7 +4,7 @@
 | 症状 | 原因 | 対処 |
 |---|---|---|
 | 画像生成・TTS が「接続先と鍵を環境変数に設定してください」で止まる | `.env` 未読込（バックグラウンド起動で忘れる） | `set -a && . <repo>/.env && set +a` を同じシェルで実行してから `setsid nohup … &` |
-| デプロイが `InsufficientQuota` で失敗する | クォータはモデルとデプロイ種別ごとにサブスクリプション全体で共有。他のリソースが枠を使い切っていることがある。DataZone 標準は別枠（単価は 1.1 倍）。費用の集計に反映するため `.env` に `REALTIME_SKU=DataZoneStandard` を書く |
+| デプロイが `InsufficientQuota` で失敗する | クォータはモデルとデプロイ種別ごとにサブスクリプション全体で共有。他のリソースが枠を使い切っていることがある。そのリソースの容量を減らして割り振り直す（TTS は直列なので 5 で足りる）か、別枠の DataZone 標準でデプロイする（単価は 1.1 倍）。費用の集計に反映するため `.env` に `REALTIME_SKU=DataZoneStandard` を書く |
 | `ModuleNotFoundError: websockets` | 別の Python（pyenv の版違いなど）で実行した | リポ直下の `.venv/bin/python` で実行する（`python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`） |
 | 実画面のスクショの下端に地の色が出る | `google-chrome --headless=new` はウィンドウ枠のぶんビューポートが縮む | HyperFrames が落とす chrome-headless-shell で撮る（例 `examples/meetroom-30s/.hyperframes/shoot_ui.sh`） |
 | `ModuleNotFoundError: rt_tts` | スクリプトの相対パス誤り | `scripts/rt_tts.py` を同じディレクトリから import（`gen_voice.py` はスキル内の相対で解決済み） |
