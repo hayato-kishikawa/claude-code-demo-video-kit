@@ -5,7 +5,8 @@
   話速: 環境変数 ATEMPO（既定 1.15）。1.06 だと遅く感じるという声が多かった。CM 調なら 1.2〜1.25。gpt-realtime-2.1 は 2 より約 1 割遅いので 1.25 前後
   REUSE_RAW=1: 録音済みの <id>_<voice>.raw.wav があれば API を呼ばず、整音（無音カット・話速・音量）だけやり直す
 前提: .env を読み込んであること（接続先は _client.py の PROVIDER を参照）。
-transcript（realtime が返す読み上げ内容）を正規化して原文と照合し、3 回までリトライする。"""
+transcript（realtime が返す読み上げ内容）を正規化して原文と照合し、一致しなければ録り直す（初回を含めて最大 3 回）。
+3 回とも一致しなかった行は「WARN mismatch kept」を出して残すので、必ず聞いて確かめる。"""
 import asyncio, json, os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rt_tts import tts

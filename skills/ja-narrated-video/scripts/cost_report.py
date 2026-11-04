@@ -28,18 +28,28 @@ def tts_cost(u, model="gpt-realtime-2"):
             + it.get("audio_tokens", 0) * p["audio_in"]
             + ot.get("text_tokens", 0) * p["text_out"] + ot.get("audio_tokens", 0) * p["audio_out"]) / 1e6
 
-path = sys.argv[1] if len(sys.argv) > 1 else "costs.jsonl"
+import os
+path = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("COST_LOG", "costs.jsonl")
+
+def price_key(model):
+    """独自のデプロイ名でも、既知のモデル名を含んでいれば同じ単価で数える（長い名前を優先）"""
+    for k in sorted(PRICES, key=len, reverse=True):
+        if k in model: return k
+    return None
 recs = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
 agg = defaultdict(lambda: {"n": 0, "usd": 0.0, "detail": "", "chars": 0})
 for r in recs:
     if not r.get("usage"):
         continue
     f = SKU_FACTOR.get(r.get("sku", "GlobalStandard"), 1.0); sk = "" if r.get("sku", "GlobalStandard") == "GlobalStandard" else f"・{r['sku']}"
+    pk = price_key(r.get("model", ""))
+    if pk is None:
+        print(f"WARN: 単価が分からないモデル {r.get('model')!r} を集計から外しました（PRICES に足してください）", file=sys.stderr); continue
     if r["kind"] == "image":
-        a = agg[f'画像（{r["model"]}）']; a["n"] += 1; a["usd"] += image_cost(r["usage"], r["model"]) * f
+        a = agg[f'画像（{r["model"]}）']; a["n"] += 1; a["usd"] += image_cost(r["usage"], pk) * f
         a["detail"] = f'{r["size"]}・quality {r["quality"]}{sk}'
     elif r["kind"] == "tts":
-        a = agg[f'ナレーション（{r["model"]}）']; a["n"] += 1; a["usd"] += tts_cost(r["usage"], r["model"]) * f
+        a = agg[f'ナレーション（{r["model"]}）']; a["n"] += 1; a["usd"] += tts_cost(r["usage"], pk) * f
         a["chars"] += r.get("chars", 0); a["detail"] = f'計 {a["chars"]} 字（再試行を含む）{sk}'
 steps = [(r["step"], r.get("wall_s")) for r in recs if r["kind"] == "step" and r.get("wall_s") is not None]
 

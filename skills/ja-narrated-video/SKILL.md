@@ -26,10 +26,11 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
           写真  : 画像ジョブ JSON → $PY $SK/run_images.py job.json（1 場面 2 案、10 並列）
                   → $PY $SK/contact_sheet.py assets/gen "" sheet.jpg → Read で選定
 ③ 音声    assets/voice/lines.json → $PY $SK/gen_voice.py assets/voice marin
-④ 字幕    $PY $SK/build_captions.py assets/voice --hard 30
-⑤ BGM     python3 $SK/gen_bgm.py assets/bgm（torch が要る）→ $PY $SK/make_bed.py <total> <turn>
+④ 字幕    $PY $SK/build_captions.py assets/voice --hard 30（30 字超えは警告。台本を直す）
+⑤ BGM     $PY $SK/gen_bgm.py assets/bgm calm|upbeat（requirements-bgm.txt を .venv に。早めに裏で）
+          商用なら利用条件を確かめた音源を seed_a/seed_b に置く。BGM なしは index_config の bgm を null
 ⑥ 組み    .hyperframes/build_frames_<video>.py（$SK/build_frames.py を import）→ コマ HTML と index_config.json
-          $PY $SK/build_index.py index_config.json → index.html
+          $PY $SK/make_bed.py index_config.json → $PY $SK/build_index.py index_config.json → index.html
 ⑦ 検証    npm run check（0 error）→ npm run render → $SK/sample_frames.py → ebur128
 ⑧ 記録    $SK/export_srt.py → renders/<name>.ja.srt、$SK/cost_report.py、STORYBOARD/BRIEF 更新、旧版を renders/<name>_vN.mp4 へ
 ```
@@ -37,7 +38,7 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
 テイスト（地と光、被写体、実画面の見せ方、文字、動き、転換、音、声）の決め方と変える場所は [references/taste.md](references/taste.md)。各段の細部（レイヤのキー、字幕規則、BGM 音量、render コマンド）は [references/authoring.md](references/authoring.md)。画像のスタイル接頭辞は [references/style-prefixes.md](references/style-prefixes.md)。完成形の時間割とコマ仕様は [references/worked-example.md](references/worked-example.md)。
 
 ## 判断のしかた（ここだけは本文に置く）
-- **画面の文字は字幕に一元化。** 見出しテロップ・左上の常駐ラベルは作らない。字幕は 1 行 30 字以内。
+- **同じ言葉を画面に二重に出さない。** 字幕は 1 行 30 字以内。calm では見出しテロップ・左上の常駐ラベルを作らず字幕に一元化する。saas-bright では冒頭と締めに大きな文字を出してよく、そのコマの字幕は `caption_skip` で外す。BRIEF.md の `taste:` が優先。
 - **共感を狙うコマは写実写真の人の様子で。** 動詞だけの概念図は伝わらない。伏線回収は同一画像の再利用で。
 - **数字は画像に焼かない。** 画像生成は数字や長いラベルが化ける。数字は実画面か HTML で出す。
 - **固有名の読みは表記で制御し、依頼者の耳で選ぶ。** 4〜6 take 並べて番号で選んでもらう。判定モデルは当てにならない。

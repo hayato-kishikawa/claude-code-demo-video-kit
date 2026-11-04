@@ -13,3 +13,4 @@ renders/work-*
 .thumbnails/
 .waveform-cache/
 _bed_tmp.wav
+.hyperframes/check.out

@@ -48,6 +48,11 @@ def kinetic(fid, lines, top, gap=128):
         js.append(f'  tl.fromTo(q("k{i}"), {{opacity:0,y:40}}, {{opacity:1,y:0,duration:0.45,ease:"power3.out"}}, {at:g});')
     return "\n".join(html), "\n".join(js) + "\n"
 
+def cue_start(vid, k, fallback):
+    """k 番目の字幕キューの開始（コマ内秒）。台本を変えてキューが足りなければ fallback（音声内の秒）を使う"""
+    cs = caps.get(vid, [])
+    return round(LEAD + (cs[k]["start"] if len(cs) > k else fallback), 2)
+
 def at_char(vid, n):
     """ナレーションの n 文字目が読まれるおよその時刻（コマ内秒）"""
     text = vm[vid]["text"]
@@ -72,14 +77,14 @@ build_frame(fid, d, [], note=(NOTE, 0.0, d), extra_css=base_css(fid), extra_html
 # c03 探す：空き状況のカード → 「空いている部屋が」で窓に寄る
 fid, vid = "c03-find", "c03"; d = dur(vid); F.append((fid, d))
 ch, cj, _ = float_card(fid, "av", "ui/app-availability.png", 320, 96, 1280)
-zoom_at = round(LEAD + caps[vid][1]["start"] - 0.1, 2)
+zoom_at = round(cue_start(vid, 1, vm[vid]["duration_s"] * 0.45) - 0.1, 2)
 cj += ('  tl.set(q("avi"), {transformOrigin:"38% 52%"}, 0);\n'
        f'  tl.to(q("avi"), {{scale:1.75,duration:1.0,ease:"power3.inOut"}}, {zoom_at:g});\n')
 build_frame(fid, d, [], note=(NOTE, 0.0, d), extra_css=base_css(fid), extra_html=ch, extra_js=cj)
 
 # c04 予約する：予約完了のカード → 「予定表にも」でカレンダーと紙飛行機
 fid, vid = "c04-book", "c04"; d = dur(vid); F.append((fid, d))
-cal_at = round(LEAD + caps[vid][1]["start"] - 0.15, 2)
+cal_at = round(cue_start(vid, 1, vm[vid]["duration_s"] * 0.4) - 0.15, 2)
 ch, cj, _ = float_card(fid, "bk", "ui/app-booked.png", 120, 150, 1120)
 cj += ('  tl.set(q("bki"), {transformOrigin:"57% 50%"}, 0);\n'
        '  tl.to(q("bki"), {scale:1.6,duration:0.9,ease:"power3.inOut"}, 0.75);\n')   # 中央のダイアログに寄せる
@@ -112,11 +117,14 @@ build_frame(fid, d, [], extra_css=base_css(fid) + f"""
   box-shadow:0 30px 70px rgba(16,70,52,.25);}}
 .{fid}-mark i{{display:block;height:96px;border-radius:16px;background:#2E8C70;}}
 .{fid}-name{{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:140px;letter-spacing:0.02em;color:{INK};}}
+.{fid}-fict{{position:absolute;left:0;right:0;top:700px;text-align:center;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:28px;color:#4F5B6E;opacity:0;}}
 """, extra_html=f"""
   <div class="{fid}-lockup">
     <div class="{fid}-mark" id="{fid}-mark"><i></i><i id="{fid}-lit"></i><i></i><i></i></div>
     <div class="{fid}-name" id="{fid}-name">ヘヤマド</div>
-  </div>""", extra_js=f"""
+  </div>
+  <div class="{fid}-fict" id="{fid}-fict">架空のサービスです（デモ用）</div>""", extra_js=f"""
+  tl.fromTo(q("fict"), {{opacity:0}}, {{opacity:1,duration:0.4,ease:"power1.out"}}, 0.8);
   tl.fromTo(q("mark"), {{opacity:0,scale:0.6,rotation:-8}}, {{opacity:1,scale:1,rotation:0,duration:0.6,ease:"back.out(2)"}}, 0.1);
   tl.fromTo(q("lit"), {{backgroundColor:"#2E8C70"}}, {{backgroundColor:"#A7F3D0",duration:0.3,ease:"power2.out"}}, 0.5);
   tl.fromTo(q("name"), {{opacity:0,x:-24}}, {{opacity:1,x:0,duration:0.45,ease:"power3.out"}}, 0.3);""")

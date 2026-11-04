@@ -35,6 +35,7 @@
   box-shadow:0 30px 70px rgba(16,70,52,.25);}
 .c07-close-mark i{display:block;height:96px;border-radius:16px;background:#2E8C70;}
 .c07-close-name{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:140px;letter-spacing:0.02em;color:#14211C;}
+.c07-close-fict{position:absolute;left:0;right:0;top:700px;text-align:center;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:28px;color:#4F5B6E;opacity:0;}
 
 </style>
 
@@ -45,6 +46,7 @@
     <div class="c07-close-mark" id="c07-close-mark"><i></i><i id="c07-close-lit"></i><i></i><i></i></div>
     <div class="c07-close-name" id="c07-close-name">ヘヤマド</div>
   </div>
+  <div class="c07-close-fict" id="c07-close-fict">架空のサービスです（デモ用）</div>
 </div>
 
 <script>
@@ -53,6 +55,7 @@
   var q=function(k){return "#"+ID+"-"+k;};
   var tl=gsap.timeline({paused:true});
 
+  tl.fromTo(q("fict"), {opacity:0}, {opacity:1,duration:0.4,ease:"power1.out"}, 0.8);
   tl.fromTo(q("mark"), {opacity:0,scale:0.6,rotation:-8}, {opacity:1,scale:1,rotation:0,duration:0.6,ease:"back.out(2)"}, 0.1);
   tl.fromTo(q("lit"), {backgroundColor:"#2E8C70"}, {backgroundColor:"#A7F3D0",duration:0.3,ease:"power2.out"}, 0.5);
   tl.fromTo(q("name"), {opacity:0,x:-24}, {opacity:1,x:0,duration:0.45,ease:"power3.out"}, 0.3);

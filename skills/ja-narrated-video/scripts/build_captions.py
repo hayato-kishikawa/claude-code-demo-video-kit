@@ -75,6 +75,11 @@ for ln in lines:
     t = [0.0] + boundaries(path, ch, dur) + [dur]
     caps[cid] = [{"text": c, "start": round(t[i], 3), "end": round(t[i + 1], 3)} for i, c in enumerate(ch)]
 json.dump(caps, open(os.path.join(here, "captions.json"), "w"), ensure_ascii=False, indent=1)
+over = 0
 for cid, cs in caps.items():
     print(cid, meta[cid]["duration_s"])
-    for c in cs: print(f"   {c['start']:6.2f}–{c['end']:6.2f}  ({len(c['text'])}字) {c['text']}")
+    for c in cs:
+        mark = "  ← 30 字超え。台本に読点を足すか文を割る" if len(c["text"]) > HARD else ""
+        over += bool(mark)
+        print(f"   {c['start']:6.2f}–{c['end']:6.2f}  ({len(c['text'])}字) {c['text']}{mark}")
+if over: print(f"WARN: {over} 件のキューが {HARD} 字を超えています（読点のない長い文は割れません）")

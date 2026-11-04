@@ -33,7 +33,7 @@ skills/ja-narrated-video を使って、<製品名> の 30 秒のデモ動画を
 見る人は <誰>、流す場所は <展示会ブース／商談の冒頭>。まず BRIEF.md と STORYBOARD.md を書いて見せて。
 ```
 
-完成例だけをレンダし直すなら、API の鍵は要りません（素材はリポに入っています）。
+完成例だけをレンダし直すなら、API の鍵は要りません（素材はリポに入っています）。完成例の BGM は非商用のサンプルなので、商用の動画に流用しないでください。
 
 ```bash
 cd examples/meetroom-30s-saas && npm run check && npm run render

@@ -1,0 +1,18 @@
+# 品質確認（2026-11-04、hyperframes@0.8.30）
+## npm run check
+Lint
+  ◇ 0 errors, 0 warnings
+Runtime
+  ◇ 0 errors, 0 warnings
+Layout
+  0 error(s), 0 warning(s), 6 info(s)
+Motion
+  ◇ 0 errors, 0 warnings
+Contrast
+  ◇ 9/9 text checks pass WCAG AA
+◇  Check passed
+## ffprobe（秒,バイト）
+30.200000,14869022
+## ebur128（統合ラウドネス）
+ I: -13.1 LUFS
+ LRA: 3.1 LU

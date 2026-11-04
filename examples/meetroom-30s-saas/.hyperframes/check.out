@@ -1,0 +1,30 @@
+◆  Checking meetroom-30s-saas
+[hyperframes] browserGpuMode probe → software (WebGL renderer vendor="Google Inc. (Mesa)" renderer="ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL ES 3.2)")
+
+Lint
+  ◇ 0 errors, 0 warnings
+
+Runtime
+  ◇ 0 errors, 0 warnings
+
+Layout
+  ℹ t=1.48s container_overflow #c01-hook-L1o inside #c01-hook-L1 overflowed left 17.38px, right 17.38px, top 9.77px, bottom 9.77px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=10.33s container_overflow #c03-find-avi inside #c03-find-av overflowed left 364.8px, right 595.2px, top 280.8px, bottom 259.2px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=16.23s container_overflow #c04-book-bki inside #c04-book-bk overflowed left 383.04px, right 288.96px, top 189px, bottom 189px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=22.13s container_overflow #c06-talk-L1o inside #c06-talk-L1 overflowed left 31.2px, right 31.2px, top 17.55px, bottom 17.55px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  0 error(s), 0 warning(s), 4 info(s)
+
+Motion
+  ◇ 0 errors, 0 warnings
+
+Contrast
+  ◇ 13/13 text checks pass WCAG AA
+
+Snapshots
+  ◇ disabled
+
+◇  Check passed

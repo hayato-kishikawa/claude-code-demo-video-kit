@@ -8,7 +8,7 @@ index_config.json の例:
   "voice_id": "prefix3",                 # コマ id → 音声 id の対応。"prefix3"=先頭 3 文字（e01-question→e01）
   "pre": 0.5,                            # 前のコマを延長して重ねる秒（転換用）
   "lead": 0.6,                           # コマ開始からナレーション開始までの間
-  "bgm": "assets/bgm/bed_101.mp3",
+  "bgm": "assets/bgm/bed_101.mp3",       # null で BGM なし
   "bgm_keys": [[0,0.26],[18,0.22],[21,0.15],[96,0.24]],   # [秒, 音量]。先頭は set、以降は 2 秒の to
   "fonts": "assets/fonts/NotoSansJP-Medium.ttf",
   "transition": "blur",                  # 任意: blur（ぼかしのクロスフェード、落ち着いた説明向け）| push（横に押し出す）| zoom（寄りながら切り替え）
@@ -54,9 +54,10 @@ for i, (fid, start, dur) in enumerate(FRAMES):
             capjs.append(f'      tl.set("#{cid}", {{ opacity: 0 }}, 0);')
             capjs.append(f'      tl.fromTo("#{cid}", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.14, ease: "power1.out" }}, {a:g});')
             capjs.append(f'      tl.to("#{cid}", {{ opacity: 0, duration: 0.14, ease: "power1.in" }}, {max(a+0.3, b-0.14):g});')
-audio.append(f'      <audio id="el-bgm" src="{C["bgm"]}" data-start="0" data-duration="{TOTAL:g}" data-track-index="30" data-volume="1"></audio>')
 bgm = []
-for j, (t, v) in enumerate(C.get("bgm_keys", [[0, 0.24]])):
+if C.get("bgm"):   # "bgm": null で BGM なし
+    audio.append(f'      <audio id="el-bgm" src="{C["bgm"]}" data-start="0" data-duration="{TOTAL:g}" data-track-index="30" data-volume="1"></audio>')
+for j, (t, v) in enumerate(C.get("bgm_keys", [[0, 0.24]]) if C.get("bgm") else []):
     bgm.append(f'      tl.set("#el-bgm", {{ volume: {v} }}, 0);' if j == 0 else
                f'      tl.to("#el-bgm", {{ volume: {v}, duration: 2, ease: "power1.inOut" }}, {t:g});')
 

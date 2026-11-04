@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 """seed_a（単音ピアノ）→ seed_b（主旋律）の BGM ベッドを numpy で組む。
-使い方: python3 make_bed.py <total_s> <turn_s>   （プロジェクト直下。assets/bgm/seed_a.wav, seed_b.wav が要る）
+使い方: python3 make_bed.py index_config.json   （推奨。コマを組んだあとに実行し、総尺と切替秒を設定から読む）
+        python3 make_bed.py <total_s> <turn_s>
+  プロジェクト直下で実行する。assets/bgm/seed_a.wav, seed_b.wav が要る。切替秒は bgm_keys の 2 番目の秒（無ければ総尺の 3 割）
   0..turn は seed_a をループ（1.5s クロスフェード）、turn で 3s かけて seed_b ループに切り替え、末尾 5.5s フェードアウト。
   出力 assets/bgm/bed_<total>.mp3"""
 import sys, subprocess, numpy as np, soundfile as sf
-total, turn = float(sys.argv[1]), float(sys.argv[2])
+if sys.argv[1].endswith(".json"):
+    import json
+    cfg = json.load(open(sys.argv[1])); total = float(cfg["total"])
+    keys = cfg.get("bgm_keys") or []
+    turn = float(keys[1][0]) if len(keys) > 1 else round(total * 0.3, 2)
+else:
+    total, turn = float(sys.argv[1]), float(sys.argv[2])
 a, sr = sf.read("assets/bgm/seed_a.wav", dtype="float32"); b, sr2 = sf.read("assets/bgm/seed_b.wav", dtype="float32")
 assert sr == sr2
 if a.ndim > 1: a = a.mean(axis=1)

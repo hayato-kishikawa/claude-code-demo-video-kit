@@ -1,0 +1,34 @@
+◆  Checking meetroom-30s
+[hyperframes] browserGpuMode probe → software (WebGL renderer vendor="Google Inc. (Mesa)" renderer="ANGLE (Mesa, llvmpipe (LLVM 20.1.2 256 bits), OpenGL ES 3.2)")
+
+Lint
+  ◇ 0 errors, 0 warnings
+
+Runtime
+  ◇ 0 errors, 0 warnings
+
+Layout
+  ℹ t=1.68s container_overflow #c01-morning-L1o inside #c01-morning-L1 overflowed left 19.39px, right 19.39px, top 10.91px, bottom 10.91px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=5.03s container_overflow #c02-name-L1o inside #c02-name-L1 overflowed left 6.9px, right 6.9px, top 3.88px, bottom 3.88px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=11.74s container_overflow #c03-find-L1o inside #c03-find-L1 overflowed left 384px, right 384px, top 216px, bottom 216px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=15.09s container_overflow #c04-book-L1o inside #c04-book-L1 overflowed left 288px, right 288px, top 162px, bottom 162px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=21.8s container_overflow #c05-loop-L1o inside #c05-loop-L1 overflowed left 17.47px, right 17.47px, top 9.83px, bottom 9.83px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  ℹ t=25.15s container_overflow #c06-talk-L1o inside #c06-talk-L1 overflowed left 17.76px, right 17.76px, top 9.99px, bottom 9.99px — Element extends outside a clipping layout container.
+        Fix: Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.
+  0 error(s), 0 warning(s), 6 info(s)
+
+Motion
+  ◇ 0 errors, 0 warnings
+
+Contrast
+  ◇ 9/9 text checks pass WCAG AA
+
+Snapshots
+  ◇ disabled
+
+◇  Check passed

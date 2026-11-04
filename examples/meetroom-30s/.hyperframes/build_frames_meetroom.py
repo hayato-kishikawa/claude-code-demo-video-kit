@@ -78,7 +78,9 @@ build_frame(fid, d, [], extra_css=f"""
   <div class="{fid}-lockup">
     <div class="{fid}-mark" id="{fid}-mark"><i></i><i id="{fid}-lit"></i><i></i><i></i></div>
     <div class="{fid}-name" id="{fid}-name">ヘヤマド</div>
-  </div>""", extra_js=f"""
+  </div>
+  <div id="{fid}-fict" style="position:absolute;left:0;right:0;top:640px;text-align:center;font-family:'Noto Sans JP',sans-serif;font-weight:500;font-size:28px;color:#4F5B6E;opacity:0;">架空のサービスです（デモ用）</div>""", extra_js=f"""
+  tl.fromTo(q("fict"), {{opacity:0}}, {{opacity:1,duration:0.4,ease:"power1.out"}}, 0.8);
   tl.fromTo(q("mark"), {{opacity:0,scale:0.92}}, {{opacity:1,scale:1,duration:0.5,ease:"back.out(1.6)"}}, 0.15);
   tl.fromTo(q("lit"), {{backgroundColor:"#33453E"}}, {{backgroundColor:"#7FD3B4",duration:0.35,ease:"power2.out"}}, 0.55);
   tl.fromTo(q("name"), {{opacity:0,x:-16}}, {{opacity:1,x:0,duration:0.5,ease:"power3.out"}}, 0.4);""")
