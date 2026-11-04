@@ -1,6 +1,6 @@
 # claude-code-demo-video-kit
 
-> Claude Code などのコーディングエージェントが、日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 mp4）を HyperFrames で作るための手順・スキル・スクリプト・完成例。素材は gpt-image-2.5-flare（写真）と gpt-realtime-2.1（TTS）で作る。30 秒 1 本の API 費用は約 0.23 米ドル（2026-11 実測）。
+> Claude Code などのコーディングエージェントが、日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 mp4）を HyperFrames で作るための手順・スキル・スクリプト・完成例。素材は gpt-image-2.5-flare（写真）と gpt-realtime-2.1（TTS）で作る。約 30 秒 1 本の API 費用は約 0.31 米ドル（2026-11 実測）。
 
 始める前に AGENTS.md の「着手前に、利用者へ必ず確認すること」を読み、接続先・費用・権利・BGM のライセンスを利用者に確認すること。
 
@@ -14,9 +14,9 @@
 - [skills/ja-narrated-video/references/style-prefixes.md](skills/ja-narrated-video/references/style-prefixes.md): gpt-image-2.5 のスタイル接頭辞
 
 ## 完成例
-- [examples/meetroom-30s-saas](examples/meetroom-30s-saas): 同じ題材を明るい SaaS のローンチ調にした版（立体の小物、浮かぶ画面カード、大きな文字、明るいビート）
-- [examples/meetroom-30s](examples/meetroom-30s): 架空の会議室予約 SaaS「ヘヤマド」30 秒。BRIEF.md、STORYBOARD.md、site/（撮影用の画面 HTML）、.hyperframes/build_frames_meetroom.py（コマ生成）、renders/（mp4・SRT）、costs.jsonl
-- [skills/ja-narrated-video/references/worked-example.md](skills/ja-narrated-video/references/worked-example.md): その時間割とレイヤ指定
+- [examples/meetroom-30s-saas](examples/meetroom-30s-saas): 記事の題材。架空の会議室予約 SaaS「ヘヤマド」26.6 秒、明るい SaaS 調（立体の小物、浮かぶ画面カード、大きな文字、明るいビート）。BRIEF.md、STORYBOARD 相当のコマ表、site/（撮影用の画面 HTML）、.hyperframes/build_frames_saas.py、renders/（mp4・SRT）、costs.jsonl
+- [examples/meetroom-30s](examples/meetroom-30s): 同じ題材の落ち着いた説明調（30.2 秒）。テイストの比較用
+- [skills/ja-narrated-video/references/worked-example.md](skills/ja-narrated-video/references/worked-example.md): 落ち着いた説明調の版の時間割とレイヤ指定
 
 ## 解説と実測
 - [articles/claude-code-demo-video-hyperframes.md](articles/claude-code-demo-video-hyperframes.md): 解説記事（Zenn）

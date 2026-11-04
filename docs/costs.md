@@ -1,5 +1,7 @@
 # 実測：30 秒動画 1 本の費用と時間
 
+記事の主役は明るい SaaS 調の版（`examples/meetroom-30s-saas`、0.308 ドル、ページ末尾）。前半は同じ題材の落ち着いた説明調の版と、モデルの新旧比較。
+
 対象：`examples/meetroom-30s`（架空の会議室予約 SaaS「ヘヤマド」、30.2 秒・1920×1080・30fps・ナレーション 7 行・字幕 9 キュー・BGM 付き）。
 接続先：Azure OpenAI（East US）。マシン：Linux VM（GPU なし）。
 ログの原本は `examples/meetroom-30s/costs.jsonl`（現行）と `.hyperframes/costs_v1_gpt-image-2.jsonl`（旧モデルでの初版）。表は `skills/ja-narrated-video/scripts/cost_report.py` で作った。
