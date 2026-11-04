@@ -1,5 +1,9 @@
 # claude-code-demo-video-kit
 
+> Agent skills, scripts and worked examples that let Claude Code (or another coding agent) make Japanese narrated, subtitled product demo videos (1920×1080 mp4) with HyperFrames, gpt-image-2.5 and gpt-realtime-2.1. A ~30-second video costs about USD 0.31 in API calls. Start with [AGENTS.md](AGENTS.md).
+
+最終更新：2026-11-04（HyperFrames 0.8.30、gpt-image-2.5-flare、gpt-realtime-2.1 で確認）
+
 Claude Code に、展示会や商談で流す **日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 の mp4）** を作らせるための道具一式です。
 動画は [HyperFrames](https://github.com/heygen-com/hyperframes)（HTML → mp4）で組み、立体の小物と写真の素材は `gpt-image-2.5-flare`、ナレーションは `gpt-realtime-2.1` で作ります。
 
@@ -10,6 +14,7 @@ Claude Code に、展示会や商談で流す **日本語ナレーション・�
 - 完成例：[examples/meetroom-30s-saas](examples/meetroom-30s-saas)（架空の会議室予約 SaaS「ヘヤマド」の 26.6 秒動画、明るい SaaS 調、mp4 と SRT は `renders/`）と、同じ題材を落ち着いた説明調にした [examples/meetroom-30s](examples/meetroom-30s)
 - テイストの決め方：[skills/ja-narrated-video/references/taste.md](skills/ja-narrated-video/references/taste.md)
 - 費用と時間の実測：[docs/costs.md](docs/costs.md)（約 30 秒 1 本で API 約 0.31 米ドル）
+- よくある質問（他のエージェントで使えるか、Remotion との違い、画像モデルの選び方、商用利用など）：記事の「よくある質問」
 
 ## クイックスタート
 

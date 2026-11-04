@@ -1,12 +1,19 @@
 ---
-title: "【簡単】Claude Code で展示会・商談用のデモ動画を作成する方法（ナレーション・字幕付き）"
+title: "【簡単】Claude Code×HyperFramesで展示会・商談用のデモ動画を作成する方法（ナレーション・字幕付き）"
 emoji: "🎬"
 type: "tech"
 topics: ["claudecode", "hyperframes", "azureopenai", "video", "ai"]
 published: false
 ---
 
-![](/images/claude-code-demo-video-hyperframes/hero.jpg)
+**この記事の要点**
+
+- Claude Codeに、HyperFrames（HTMLから動画を書き出すOSS）、`gpt-image-2.5`、`gpt-realtime-2.1`を使わせて、日本語ナレーションと字幕付きのデモ動画（1920×1080のmp4）を作る
+- 約30秒の動画1本のAPI費用は約0.31米ドル、生成APIの待ちは合計約1分、レンダは約1分
+- 手順、スキル、スクリプト、完成例はGitHubで公開している。記事のURLを自分のコーディングエージェントに渡せば、同じ手順で再現できる
+- 2026年11月4日時点の情報（HyperFrames 0.8.30、`gpt-image-2.5-flare`、`gpt-realtime-2.1`で確認）
+
+![Claude CodeとHyperFramesでデモ動画を作る作業のイメージ](/images/claude-code-demo-video-hyperframes/hero.jpg)
 
 :::message
 **この記事を読んでいるAIエージェントへ**
@@ -33,7 +40,7 @@ published: false
 
 完成した動画はこちらです（GIFは6fpsに間引いています。音声付きのmp4はリポジトリの`examples/meetroom-30s-saas/renders/`にあります）。
 
-![完成した動画のダイジェスト](/images/claude-code-demo-video-hyperframes/digest-full.gif)
+![Claude CodeとHyperFramesで作った、架空の会議室予約SaaSのデモ動画（26.6秒）のダイジェスト](/images/claude-code-demo-video-hyperframes/digest-full.gif)
 
 使う道具は次のとおりです。
 
@@ -177,7 +184,7 @@ skills/ja-narrated-video を使って、展示会のブースと商談の冒頭�
 Claude Codeは、スキルの指示に従って`BRIEF.md`を書きます。
 ブリーフには、言いたいこと1つ、見る人、流す場所、尺、テイスト、出してよい名称を書きます。
 今回は「会議室は、探すものから、すぐ見つかるものへ。」を言いたいこと1つに決めました。
-テイストは後から変えると画像、音、動きをすべて作り直すことになるので、この段階で決めます（決め方は後半の「テイストを決める」で説明します）。
+テイストは後から変えると画像、音、動きをすべて作り直すことになるので、この段階で決めます（決め方は後半の「テイストを決める」の節で説明します）。
 
 台本のナレーションは、30秒以内なら120字前後が目安です。
 明るく軽快な調子の読み上げは1秒あたり約6字なので、120字で約20秒になり、コマの頭と末尾の間を足すと30秒以内に収まります。
@@ -209,13 +216,13 @@ c01の「窓が灯るビル」は、c03の「空いている部屋が、ぱっ�
 
 素材は、機能を見せる「実画面」と、印象を作る「立体の小物と写真」の2種類です。
 
-### 実画面：画面を作って撮る
+### 実画面：画面を作ってヘッドレスChromeで撮る
 
 自社製品の動画なら、製品の画面を撮ります。
 今回は架空のサービスなので、Claude Codeに画面そのものを作らせました。
 素のHTMLとCSSで、LPと管理画面3枚（空き状況、予約完了、利用状況）です。
 
-![自作した4枚の画面](/images/claude-code-demo-video-hyperframes/site-pages.jpg)
+![撮影用に自作した架空の会議室予約SaaSの画面4枚（LP、空き状況、予約完了、利用状況）](/images/claude-code-demo-video-hyperframes/site-pages.jpg)
 
 空いている部屋を「建物の窓が灯る」形で見せる画面にしました。
 サービス名の「ヘヤマド」（部屋の窓）と、ロゴ（2×2の窓のうち1つが灯る）も、この比喩にそろえています。
@@ -265,7 +272,7 @@ $PY $SK/contact_sheet.py assets/gen/flare "" sheet.jpg
 Claude Codeは一覧画像（コンタクトシート）を見て、採用する案を選びます。
 予約完了のコマには、ナレーションの「予定表にも、すぐ届きます」に合わせて、紙飛行機が飛ぶカレンダーの案を選びました。
 
-![1場面2案の候補と採用](/images/claude-code-demo-video-hyperframes/gen-candidates.jpg)
+![gpt-image-2.5-flareで生成した立体の小物と写真の候補（1場面2案）と採用した案](/images/claude-code-demo-video-hyperframes/gen-candidates.jpg)
 
 接頭辞に入れている指定には、それぞれ理由があります。
 
@@ -290,7 +297,7 @@ Claude Codeは一覧画像（コンタクトシート）を見て、採用する
 トークン単価は3つとも同じです。
 解像度も同じ2048×1152ですが、2.5は1枚の出力トークンが4分の1なので、費用も4分の1になりました。
 
-![同じプロンプトでの3モデルの比較](/images/claude-code-demo-video-hyperframes/image-models.jpg)
+![gpt-image-2、gpt-image-2.5-flare、gpt-image-2.5-sunburstを同じプロンプトで比べた写真](/images/claude-code-demo-video-hyperframes/image-models.jpg)
 
 この題材（オフィスの写実写真）では、仕上がりの差は見分けにくい程度でした。
 この記事の動画は、速い`flare`で作っています。
@@ -311,7 +318,7 @@ Claude Codeが台本とブリーフを渡し、codexが場面ごとのプロン�
 必須の工程ではありません。今回の30秒動画では使っていません。
 :::
 
-## 工程4：ナレーション
+## 工程4：ナレーション（gpt-realtime-2.1を日本語TTSとして使う）
 
 ナレーションは`gpt-realtime-2.1`に読ませます。
 このモデルは音声対話用ですが、指示文で「送った文章を一字一句そのまま読み上げる」役を与えると、TTSとして使えます。
@@ -345,7 +352,7 @@ TTS_STYLE="明るく軽快で、歯切れのよいナレーション調" $PY $SK
 - 字幕の表記を読みと変えたいときは、`lines.json`に`caption`を足します（読み「エーアイ」、字幕「AI」など）。
 :::
 
-## 工程5：字幕
+## 工程5：字幕（1行30字、息継ぎに合わせて区切る）
 
 字幕は、ナレーション全文を1行30字以内に割って出します。
 
@@ -359,7 +366,7 @@ $PY $SK/build_captions.py assets/voice --hard 30
 大きな文字を出すc01とc07は、後述の設定（`caption_skip`）で画面の字幕を外しています。
 SRTファイルには全キューが残ります。
 
-## 工程6：BGM
+## 工程6：BGM（MusicGenで作る）
 
 BGMはMusicGen smallで素材を2本（軽いシンセのイントロと明るいポップなビート、各28秒）作り、動画の尺に合わせて1本につなぎます。
 
@@ -376,7 +383,7 @@ MusicGenの重みのライセンスはCC-BY-NC 4.0（非商用）です。
 商談や広告など商用の動画では、ロイヤリティフリー音源を`assets/bgm/seed_a.wav`と`seed_b.wav`に置き換えるか、完成したベッド（`bed_<尺>.mp3`）を直接差し替えてください。
 :::
 
-## 工程7：コマを組む
+## 工程7：HyperFramesでコマを組む
 
 各コマはHyperFramesのサブコンポジション（1コマ1枚のHTML）です。
 HTMLを手で書くのではなく、スキルの`build_frames.py`が提供する`build_frame()`に、レイヤの指定を渡して書き出します。
@@ -415,7 +422,7 @@ $PY $SK/build_index.py index_config.json
 
 HyperFramesのプレビュー（`npm run dev`）を開くと、コマとタイムラインを確認できます。
 
-![HyperFramesのプレビュー画面](/images/claude-code-demo-video-hyperframes/studio.jpg)
+![HyperFramesのプレビュー画面（コマの一覧とタイムライン）](/images/claude-code-demo-video-hyperframes/studio.jpg)
 
 :::details つまずきやすい点：HyperFramesの検査で引っかかるもの
 - 各コマの`#root`に`data-width`と`data-height`がないと、`root_missing_dimensions`で止まります。
@@ -424,7 +431,7 @@ HyperFramesのプレビュー（`npm run dev`）を開くと、コマとタイ�
 - Ken Burnsやパンチインで画像が枠からはみ出すと`container_overflow`が出ますが、意図した動きなので問題ありません。
 :::
 
-## 工程8：検査とレンダ
+## 工程8：hyperframesのcheckとrenderで検査して書き出す
 
 ```bash
 npm run check     # lint、レイアウト、文字のコントラスト、モーションを検査
@@ -441,7 +448,7 @@ $PY $SK/sample_frames.py renders/meetroom-30s-saas.mp4 sheet.jpg 2.6 5.5 10.3 16
 ffmpeg -i renders/meetroom-30s-saas.mp4 -af ebur128 -f null - 2>&1 | grep "I:"   # 音量（−13.6 LUFS）
 ```
 
-![抜き出したコマ](/images/claude-code-demo-video-hyperframes/frames.jpg)
+![完成した動画から抜き出したコマ（大きな文字、浮かぶ画面カード、件数のカウントアップ、写真）](/images/claude-code-demo-video-hyperframes/frames.jpg)
 
 最初の抜き出しでは、2つの問題が見つかりました。
 
@@ -469,7 +476,7 @@ ffmpeg -i renders/meetroom-30s-saas.mp4 -af ebur128 -f null - 2>&1 | grep "I:"  
 修正のたびに、Claude Codeは`BRIEF.md`に「指示、反映した内容、採らなかった案とその理由」を書き残し、旧版を`renders/<name>_vN.mp4`に退避します。
 画面の文言を関係者に直してもらうときは、コマID、時刻、ナレーションを並べた書き起こしを先に渡すと、直接書き込んでもらえるので往復が減ります。
 
-## テイストを決める
+## テイストを決める（落ち着いた説明調と明るいSaaS調の比較）
 
 この動画は、最初は落ち着いた説明調で作りました。
 見返すと、新しいSaaSの紹介というより、自治体向けの説明動画のような印象でした。
@@ -524,6 +531,35 @@ Claude Code自体の利用料は契約プランによるので、表には含め
 内訳と単価の出典は、リポジトリの`docs/costs.md`にあります。
 
 ## よくある質問
+
+### Claude Code以外のコーディングエージェントでも使えますか？
+
+手順はリポジトリの`AGENTS.md`とスキルの文書にまとめているので、ファイルを読んでシェルを実行できるエージェントなら、同じ手順をたどれるはずです。
+ただし、筆者が実際に動かしたのはClaude Codeだけです。
+スキルを`.claude/skills`に置く仕組みはClaude Code向けなので、ほかのエージェントには`AGENTS.md`から読ませてください。
+
+### Remotionとの違いは何ですか？
+
+RemotionはReactのコンポーネントで動画を書くフレームワークで、HyperFramesはHTMLとGSAPのアニメーションで書きます。
+筆者はRemotionでは作っていないので、仕上がりや速さは比べていません。
+HyperFramesを選んだのは、各コマを素のHTMLとして書けて、ブラウザでそのまま確かめられるからです。
+
+### 画像生成には、どのモデルを使えばよいですか？
+
+`gpt-image-2.5-flare`を勧めます。
+同じプロンプトで比べると、旧モデルの`gpt-image-2`より1枚の費用が4分の1（約0.044ドル）で、生成も約2.5倍速くなりました。
+細部の正確さを優先したい素材は、`gpt-image-2.5-sunburst`でも試してください。単価は同じです。
+
+### 日本語のナレーションは自然ですか？
+
+`gpt-realtime-2.1`を読み上げに使う方法が、筆者が試した中では最も自然でした。
+ただし、社名や英字略称の読みは録るたびに揺れるので、表記を工夫して何回か録り、人の耳で聞き比べて選びます。
+
+### 商用の動画に使えますか？
+
+リポジトリのコードはMIT、HyperFramesはApache-2.0、同梱フォントはSIL OFL 1.1なので、商用でも使えます。
+BGMを作るMusicGenは重みが非商用（CC-BY-NC 4.0）なので、商用の動画ではロイヤリティフリー音源に差し替えてください。
+生成した画像と音声は、利用するサービスの規約に従います。
 
 ### OpenAI APIだけで作れますか？
 
