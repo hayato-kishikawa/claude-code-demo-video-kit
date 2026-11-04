@@ -23,10 +23,10 @@
 </style>
 
 <div id="root" data-composition-id="c01-morning" data-width="1920" data-height="1080">
-  <div class="clip c01-morning-ground" id="c01-morning-ground" data-start="0" data-duration="4.9" data-track-index="0"></div>
-  <div class="clip c01-morning-layer" id="c01-morning-L1" data-start="0" data-duration="4.9" data-track-index="1">
+  <div class="clip c01-morning-ground" id="c01-morning-ground" data-start="0" data-duration="4.95" data-track-index="0"></div>
+  <div class="clip c01-morning-layer" id="c01-morning-L1" data-start="0" data-duration="4.95" data-track-index="1">
     <div class="c01-morning-outer" id="c01-morning-L1o"><div class="c01-morning-inner" id="c01-morning-L1i">
-      <img class="c01-morning-img" src="assets/gen/c01_corridor_b.png" alt="">
+      <img class="c01-morning-img" src="assets/gen/flare/c01_corridor_b.png" alt="">
     </div></div>
   </div>
 
@@ -37,8 +37,8 @@
   var ID="c01-morning";
   var q=function(k){return "#"+ID+"-"+k;};
   var tl=gsap.timeline({paused:true});
-  tl.fromTo(q("L1o"), {scale:1}, {scale:1.06,duration:4.9,ease:"none"}, 0);
-  tl.fromTo(q("L1i"), {x:0,y:0}, {x:-24,y:-6,duration:4.9,ease:"none"}, 0);
+  tl.fromTo(q("L1o"), {scale:1}, {scale:1.06,duration:4.95,ease:"none"}, 0);
+  tl.fromTo(q("L1i"), {x:0,y:0}, {x:-24,y:-6,duration:4.95,ease:"none"}, 0);
 
   window.__timelines=window.__timelines||{};
   window.__timelines[ID]=tl;

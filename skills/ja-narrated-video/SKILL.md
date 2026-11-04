@@ -1,6 +1,6 @@
 ---
 name: ja-narrated-video
-description: HyperFrames で日本語ナレーション付きの展示・商談用デモ動画（30〜180 秒、1920×1080）を作る／直す。gpt-image-2 で写実の素材を作り、自作画面をヘッドレス Chrome で撮り、gpt-realtime-2 を TTS に使い、無音検出でナレーション全文の字幕を付け、check→render→抜き出しコマで検証する。新しいデモ動画・字幕・ナレーション録り直し・レンダの依頼を受けたときに使う。
+description: HyperFrames で日本語ナレーション付きの展示・商談用デモ動画（30〜180 秒、1920×1080）を作る／直す。gpt-image-2.5 で写実の素材を作り、自作画面をヘッドレス Chrome で撮り、gpt-realtime-2.1 を TTS に使い、無音検出でナレーション全文の字幕を付け、check→render→抜き出しコマで検証する。新しいデモ動画・字幕・ナレーション録り直し・レンダの依頼を受けたときに使う。
 ---
 
 # ja-narrated-video
@@ -39,7 +39,7 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
 ## 判断のしかた（ここだけは本文に置く）
 - **画面の文字は字幕に一元化。** 見出しテロップ・左上の常駐ラベルは作らない。字幕は 1 行 30 字以内。
 - **共感を狙うコマは写実写真の人の様子で。** 動詞だけの概念図は伝わらない。伏線回収は同一画像の再利用で。
-- **数字は画像に焼かない。** gpt-image-2 は数字や長いラベルが化ける。数字は実画面か HTML で出す。
+- **数字は画像に焼かない。** 画像生成は数字や長いラベルが化ける。数字は実画面か HTML で出す。
 - **固有名の読みは表記で制御し、依頼者の耳で選ぶ。** 4〜6 take 並べて番号で選んでもらう。判定モデルは当てにならない。
 - **主張は事実の範囲で。** 他社製品の挙動を断定しない。実画面に実データ・内部名を出さない。
 - **修正は「批判的な見直し → 反映」の順。** 直す前に現状の問題点を列挙し、BRIEF.md の `## vN` 節に「指示 → 反映 → 不採用と理由」を残す。
@@ -51,10 +51,10 @@ description: HyperFrames で日本語ナレーション付きの展示・商談�
 | ファイル | 用途 |
 |---|---|
 | `_client.py` | 接続先の切り替え（`PROVIDER=azure|openai`）と実測ログ `costs.jsonl` への追記 |
-| `run_images.py` | ジョブ JSON を gpt-image-2 で並列生成（`skills/generate-image/scripts/genimg.py` を使用） |
+| `run_images.py` | ジョブ JSON を gpt-image-2.5 で並列生成（ジョブの `deployment` でモデルを指定）（`skills/generate-image/scripts/genimg.py` を使用） |
 | `contact_sheet.py` / `sample_frames.py` | 画像一覧／レンダ結果の抜き出しシート（Read で目視） |
-| `rt_tts.py` / `gen_voice.py` | gpt-realtime-2 で TTS、照合・整音・voice_meta.json |
-| `rt_listen.py` | 音声を gpt-realtime-2 に聞かせて採点（参考値） |
+| `rt_tts.py` / `gen_voice.py` | gpt-realtime-2.1 で TTS、照合・整音・voice_meta.json（`REUSE_RAW=1` で整音だけやり直し） |
+| `rt_listen.py` | 音声を gpt-realtime-2.1 に聞かせて採点（参考値） |
 | `build_captions.py` / `export_srt.py` | 字幕チャンク＋無音スナップ／SRT 書き出し |
 | `build_frames.py` | `build_frame()` ライブラリ（KB・パンチイン・カバー・ハイライト・吹き出し・カード） |
 | `build_index.py` | 設定 JSON から index.html（スロット・転換・音声・字幕・BGM） |

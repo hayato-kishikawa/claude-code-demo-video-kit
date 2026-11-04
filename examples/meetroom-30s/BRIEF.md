@@ -7,7 +7,8 @@ language: ja
 audience: 中堅企業の総務・ファシリティ担当。会議室の予約は表計算か古い予約システムで、空き探しと空予約に困っている
 length: 約 30 秒
 angle: 世界観・期待感型（課題を並べない）。朝のオフィス → サービス名 → 実画面 3 枚（探す・予約する・回る）→ 会議が始まる → 締め
-voice: gpt-realtime-2 / marin（日本語ナレーション、デスマス調、ATEMPO 1.15）
+voice: gpt-realtime-2.1 / marin（日本語ナレーション、デスマス調、ATEMPO 1.25）
+image: gpt-image-2.5-flare（比較用に gpt-image-2 と gpt-image-2.5-sunburst も生成）
 palette: 地 #F6F8F7、墨 #14211C、アクセントは深緑 #0F7B5F だけ、灰 #8A9690 / #DCE3DF
 ---
 
@@ -25,4 +26,10 @@ palette: 地 #F6F8F7、墨 #14211C、アクセントは深緑 #0F7B5F だけ、�
 - 初版。
 - 目視の指摘 2 点 → v1.1 で反映：右上の注記ピルが LP の CTA ボタン・アプリのユーザー名と重なる → 左下へ。空き状況のパンチインで左端にサイドバーの文字が見切れる → 中心を (960,560) に。
 - v1.1 で注記ピルがサイドバー下端の「本社ビル 36 室」と重なった → `site/style.css` で表記をナビの直下に移して撮り直し。
-- 完成：`renders/meetroom-30s.mp4`（29.7s・14.1MB・−13.4 LUFS）、`renders/meetroom-30s.ja.srt`（9 キュー）。
+- v1 の完成：29.7s・14.1MB・−13.4 LUFS（gpt-image-2 ＋ gpt-realtime-2）。
+
+## v2（2026-11-04）
+- 指示：使っている生成モデルが最新ではない → 画像を gpt-image-2.5（flare と sunburst の両方で比較）、音声を gpt-realtime-2.1 に。
+- 反映：同じプロンプトで 4 場面を flare と sunburst で生成（旧版は `assets/gen/gpt-image-2/` に退避）。仕上がりの差は小さく、速い flare を採用（場面は v1 と同じ c01 案b・c06 案a）。2.5 は 1 枚の出力トークンが 1,413（旧 5,650）で費用 4 分の 1、生成 28〜38 秒（旧 74 秒）。
+- gpt-realtime-2.1 は Global 標準の枠を他リソースが使い切っていたため DataZone 標準でデプロイ。読みが約 1 割遅く（23.3→25.8 秒）、ATEMPO を 1.25 にして 23.8 秒に。
+- 完成：`renders/meetroom-30s.mp4`（30.2s・14.8MB・−13.1 LUFS）、SRT 9 キュー。API 費用 0.232 ドル（v1 は 0.730 ドル）。

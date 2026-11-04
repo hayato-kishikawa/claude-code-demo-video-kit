@@ -1,8 +1,9 @@
-"""gpt-realtime-2 を日本語 TTS として使い、lines.json の各行を <voice_dir>/<id>.wav にする。
+"""gpt-realtime-2.1 を日本語 TTS として使い、lines.json の各行を <voice_dir>/<id>.wav にする。
 使い方: python3 gen_voice.py <voice_dir> [voice=marin] [id ...]
   <voice_dir>/lines.json : [{"id":"e01","text":"読み上げ文","caption":"字幕表記(省略可)"}]
   出力: <voice_dir>/<id>.wav（無音カット, atempo, loudnorm I=-16, 44.1k mono）と voice_meta.json
-  話速: 環境変数 ATEMPO（既定 1.15）。1.06 だと遅く感じるという声が多かった。CM 調なら 1.2〜1.25
+  話速: 環境変数 ATEMPO（既定 1.15）。1.06 だと遅く感じるという声が多かった。CM 調なら 1.2〜1.25。gpt-realtime-2.1 は 2 より約 1 割遅いので 1.25 前後
+  REUSE_RAW=1: 録音済みの <id>_<voice>.raw.wav があれば API を呼ばず、整音（無音カット・話速・音量）だけやり直す
 前提: .env を読み込んであること（接続先は _client.py の PROVIDER を参照）。
 transcript（realtime が返す読み上げ内容）を正規化して原文と照合し、3 回までリトライする。"""
 import asyncio, json, os, re, sys, subprocess
@@ -30,7 +31,9 @@ async def main():
         raw = os.path.join(here, f"{ln['id']}_{voice}.raw.wav")
         out = os.path.join(here, f"{ln['id']}.wav")
         ok = False
-        for attempt in range(3):
+        if os.environ.get("REUSE_RAW") == "1" and os.path.exists(raw):
+            ok = True
+        for attempt in range(0 if ok else 3):
             r = await tts(ln["text"], raw, voice)
             if norm(r["transcript"]) == norm(ln["text"]) and r["seconds"] > 1.0:
                 ok = True; break

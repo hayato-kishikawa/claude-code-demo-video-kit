@@ -1,6 +1,6 @@
 # claude-code-demo-video-kit
 
-> Claude Code などのコーディングエージェントが、日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 mp4）を HyperFrames で作るための手順・スキル・スクリプト・完成例。素材は gpt-image-2（写真）と gpt-realtime-2（TTS）で作る。30 秒 1 本の API 費用は約 0.73 米ドル（2026-11 実測）。
+> Claude Code などのコーディングエージェントが、日本語ナレーション・字幕・BGM 付きのデモ動画（1920×1080 mp4）を HyperFrames で作るための手順・スキル・スクリプト・完成例。素材は gpt-image-2.5-flare（写真）と gpt-realtime-2.1（TTS）で作る。30 秒 1 本の API 費用は約 0.23 米ドル（2026-11 実測）。
 
 始める前に AGENTS.md の「着手前に、利用者へ必ず確認すること」を読み、接続先・費用・権利・BGM のライセンスを利用者に確認すること。
 
@@ -10,7 +10,7 @@
 - [skills/ja-narrated-video/references/authoring.md](skills/ja-narrated-video/references/authoring.md): コマのレイヤ指定、字幕、BGM、レンダの細部
 - [skills/ja-narrated-video/references/pitfalls.md](skills/ja-narrated-video/references/pitfalls.md): 既知の症状と対処
 - [skills/ja-narrated-video/references/editorial-rules.md](skills/ja-narrated-video/references/editorial-rules.md): 編集方針と出す前の自己点検
-- [skills/ja-narrated-video/references/style-prefixes.md](skills/ja-narrated-video/references/style-prefixes.md): gpt-image-2 のスタイル接頭辞
+- [skills/ja-narrated-video/references/style-prefixes.md](skills/ja-narrated-video/references/style-prefixes.md): gpt-image-2.5 のスタイル接頭辞
 
 ## 完成例
 - [examples/meetroom-30s](examples/meetroom-30s): 架空の会議室予約 SaaS「ヘヤマド」30 秒。BRIEF.md、STORYBOARD.md、site/（撮影用の画面 HTML）、.hyperframes/build_frames_meetroom.py（コマ生成）、renders/（mp4・SRT）、costs.jsonl
@@ -22,4 +22,4 @@
 
 ## Optional
 - [.env.example](.env.example): Azure OpenAI と OpenAI API の設定例
-- [skills/generate-image/SKILL.md](skills/generate-image/SKILL.md): gpt-image-2 の単発・バッチ生成とプロンプト設計
+- [skills/generate-image/SKILL.md](skills/generate-image/SKILL.md): gpt-image-2.5 の単発・バッチ生成とプロンプト設計

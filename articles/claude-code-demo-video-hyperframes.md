@@ -20,9 +20,9 @@ API の費用が発生し、生成物の権利にも関わるためです。
 
 | 確認すること | 目安（この記事の実測） |
 |---|---|
-| 接続先 | Azure OpenAI か OpenAI API。使うモデルは `gpt-image-2` と `gpt-realtime-2`。OpenAI API の経路はコード上は対応しているが、作者は未検証 |
-| API 費用 | 30 秒の動画 1 本で約 0.73 米ドル（写真 4 枚とナレーション 7 行）。作り直すたびに増える |
-| 所要時間 | 生成 API の待ちは合計約 2 分、レンダは約 1 分。CPU で BGM を作ると約 6 分かかる |
+| 接続先 | Azure OpenAI か OpenAI API。使うモデルは `gpt-image-2.5-flare`（または `gpt-image-2.5-sunburst`）と `gpt-realtime-2.1`。OpenAI API の経路はコード上は対応しているが、作者は未検証 |
+| API 費用 | 30 秒の動画 1 本で約 0.23 米ドル（写真 4 枚とナレーション 7 行）。作り直すたびに増える |
+| 所要時間 | 生成 API の待ちは合計約 1 分、レンダは約 80 秒。CPU で BGM を作ると約 6 分かかる |
 | 動画の中身 | 誰に、どこで流すか。尺。出してよい社名、製品名、固有名 |
 | 素材の権利 | 撮影する画面は利用者に権利があるか。他社のサイトやロゴは使わない |
 | BGM | 既定の MusicGen は重みが CC-BY-NC 4.0（非商用）。商用ならロイヤリティフリー音源に差し替える |
@@ -53,8 +53,8 @@ API の費用が発生し、生成物の権利にも関わるためです。
 使う道具は次のとおりです。
 
 - **HyperFrames**：HTML と GSAP のアニメーションを mp4 に書き出すフレームワーク（HeyGen が公開している OSS、Apache-2.0）。各コマを HTML で書き、`check` で検査して `render` で書き出す
-- **gpt-image-2**：写実の写真素材を作る
-- **gpt-realtime-2**：本来は音声対話用のモデルを、日本語ナレーションの読み上げ（TTS）として使う
+- **gpt-image-2.5-flare**：写実の写真素材を作る（精度を優先するなら `gpt-image-2.5-sunburst`）
+- **gpt-realtime-2.1**：本来は音声対話用のモデルを、日本語ナレーションの読み上げ（TTS）として使う
 - **MusicGen small**：BGM の素材を作る（CPU で動く）
 - **Claude Code**：上の全部を、スキルとスクリプトに従って動かす
 
@@ -87,7 +87,7 @@ flowchart LR
 | Node.js 20 以上 | `npx hyperframes@0.8.30` を動かす。初回にレンダ用の chrome-headless-shell を自動で取得する |
 | ffmpeg | 音声の整音、音量の測定、GIF の書き出し |
 | Python 3.10 以上 | 画像生成、TTS、字幕のスクリプト |
-| Azure OpenAI か OpenAI API | `gpt-image-2` と `gpt-realtime-2` |
+| Azure OpenAI か OpenAI API | `gpt-image-2.5-flare` と `gpt-realtime-2.1` |
 | （任意）torch と transformers | MusicGen で BGM を作るときだけ。モデルは約 2.4GB |
 
 HyperFrames は版を `0.8.30` に固定しています。
@@ -111,16 +111,23 @@ v1 の API は OpenAI と同じ形なので、スクリプトは接続先と認�
 PROVIDER=azure
 AZURE_OPENAI_BASE_URL=https://<resource>.openai.azure.com/openai/v1
 AZURE_OPENAI_API_KEY=...
-IMAGE_DEPLOYMENT=gpt-image-2
-REALTIME_DEPLOYMENT=gpt-realtime-2
+IMAGE_DEPLOYMENT=gpt-image-2.5-flare
+REALTIME_DEPLOYMENT=gpt-realtime-2.1
 
 # OpenAI API（コード上は対応、筆者は未検証）
 # PROVIDER=openai
 # OPENAI_API_KEY=sk-...
 ```
 
-Azure では、`gpt-image-2` と `gpt-realtime-2` をデプロイしておきます。
+Azure では、`gpt-image-2.5-flare` と `gpt-realtime-2.1` をデプロイしておきます。
 デプロイ名をモデル名と同じにしておくと、`.env` を書き換えずに済みます。
+
+:::details つまずきやすい点：デプロイのクォータ
+クォータ（1 分あたりの上限）は、モデルとデプロイ種別ごとにサブスクリプション全体で共有されます。
+筆者の環境では、`gpt-realtime-2.1` の Global 標準の枠を別のリソースが使い切っていて、デプロイできませんでした。
+DataZone 標準は別枠なので、そちらでデプロイしました。
+単価は Global 標準の 1.1 倍です。
+:::
 
 最後に、スキルを Claude Code から見える場所に置きます。
 
@@ -152,8 +159,8 @@ Claude Code は、スキルの指示に従って `BRIEF.md` を書きます。
 今回は「会議室は、探すものから、すぐ見つかるものへ。」を言いたいこと 1 つに決めました。
 
 台本のナレーションは、30 秒なら 140 字前後が目安です。
-話速を少し上げた読み上げ（後述の ATEMPO 1.15）で 1 秒あたり約 5.5 字なので、140 字で約 25 秒になり、コマの頭と末尾の間を足すと 30 秒に収まります。
-今回は 7 行、計 137 字で、ナレーションの実尺は 23.3 秒、動画全体は 29.7 秒になりました。
+話速を少し上げた読み上げ（後述の ATEMPO 1.25）で 1 秒あたり約 5.8 字なので、140 字で約 24 秒になり、コマの頭と末尾の間を足すと 30 秒に収まります。
+今回は 7 行、計 137 字で、ナレーションの実尺は 23.8 秒、動画全体は 30.2 秒になりました。
 
 :::details つまずきやすい点：課題を並べる構成
 最初の数本は「現場の痛み → 解決 → 結果」の順で作りました。
@@ -214,14 +221,15 @@ HyperFrames が初回に取得する chrome-headless-shell で撮ると、指定
 読み込みに時間のかかる SPA を撮るときは、数秒待ってから撮る `scripts/cdp_shot.py` を使います。
 :::
 
-### 写真：gpt-image-2 で 1 場面 2 案ずつ作る
+### 写真：gpt-image-2.5 で 1 場面 2 案ずつ作る
 
 写真は、ジョブ JSON に場面を書いて並列に生成します。
 全画像に共通する指定は `style`（スタイル接頭辞）にまとめ、場面ごとの違いだけを `prompt` に書きます。
 
 ```json
 {
-  "out_dir": "assets/gen", "size": "2048x1152", "quality": "high",
+  "out_dir": "assets/gen/flare", "size": "2048x1152", "quality": "high",
+  "deployment": "gpt-image-2.5-flare",
   "style": "Photorealistic location photography for a Japanese B2B software promo video ... All people are East Asian adults ... with no identifiable faces: show backs, shoulders, hands ... Keep the lower 22% simple ... STRICT TEXT RULE: never render titles, annotations, captions, ...",
   "images": [
     {"name": "c01_corridor_a", "prompt": "Scene: a long bright office corridor lined with glass-walled meeting rooms ..."},
@@ -234,11 +242,11 @@ HyperFrames が初回に取得する chrome-headless-shell で撮ると、指定
 cd examples/meetroom-30s
 set -a && . ../../.env && set +a
 SK=../../skills/ja-narrated-video/scripts; PY=../../.venv/bin/python
-$PY $SK/run_images.py assets/gen/_input/job_live.json
-$PY $SK/contact_sheet.py assets/gen "" sheet.jpg
+$PY $SK/run_images.py assets/gen/_input/job_flare.json
+$PY $SK/contact_sheet.py assets/gen/flare "" sheet.jpg
 ```
 
-4 枚の生成は並列で 74 秒でした。
+4 枚の生成は並列で 28 秒、費用は約 0.18 ドルでした。
 Claude Code は一覧画像（コンタクトシート）を見て、採用する案を選びます。
 
 ![1 場面 2 案の候補と採用](/images/claude-code-demo-video-hyperframes/gen-candidates.jpg)
@@ -248,6 +256,26 @@ Claude Code は一覧画像（コンタクトシート）を見て、採用す�
 - **顔を出さない**：人物は後ろ姿、肩越し、手元だけにする。実在の人物に似る心配がなく、見る人が自分を重ねやすい
 - **下 22% を空ける**：字幕を重ねる帯に、細かい被写体を置かせない
 - **STRICT TEXT RULE**：指定していない題字や注記を描かせない
+
+#### gpt-image-2 と gpt-image-2.5 の比較
+
+この記事の初版は `gpt-image-2` で作り、その後 `gpt-image-2.5` の 2 種類（`flare` と `sunburst`）に切り替えました。
+同じプロンプトで同じ 4 場面を生成し、比べた結果が次の表です。
+
+| モデル | 1 枚の出力トークン | 1 枚の費用 | 4 枚の実時間（並列） |
+|---|---:|---:|---:|
+| gpt-image-2 | 5,650 | 約 0.17 ドル | 74 秒 |
+| gpt-image-2.5-flare | 1,413 | 約 0.044 ドル | 28 秒 |
+| gpt-image-2.5-sunburst | 1,413 | 約 0.044 ドル | 38 秒 |
+
+トークン単価は 3 つとも同じです。
+解像度も同じ 2048×1152 ですが、2.5 は 1 枚の出力トークンが 4 分の 1 なので、費用も 4 分の 1 になりました。
+
+![同じプロンプトでの 3 モデルの比較](/images/claude-code-demo-video-hyperframes/image-models.jpg)
+
+この題材（オフィスの写実写真）では、仕上がりの差は見分けにくい程度でした。
+動画には、速い `flare` を使っています。
+`sunburst` は細部の正確さを優先する版とされているので、画面の細かい要素や編集の精度が要る素材で試す価値があります。
 
 :::details つまずきやすい点：画像生成の癖
 - 「文字なし」と指示しても、題字や末尾の説明文を勝手に描き込むことがあります。筆者の例では 20 枚中 7 枚でした。接頭辞の末尾に STRICT TEXT RULE の一文を入れると、すべて消えました。
@@ -266,7 +294,7 @@ Claude Code が台本とブリーフを渡し、codex が場面ごとのプロ�
 
 ## 工程4：ナレーション
 
-ナレーションは `gpt-realtime-2` に読ませます。
+ナレーションは `gpt-realtime-2.1` に読ませます。
 このモデルは音声対話用ですが、指示文で「送った文章を一字一句そのまま読み上げる」役を与えると、TTS として使えます。
 試した範囲では、日本語の自然さはこの方法が最も良く、ほかの選択肢（オープンな TTS モデル）は日本語の読み上げが不自然に遅くなりました。
 
@@ -285,11 +313,12 @@ $PY $SK/gen_voice.py assets/voice marin
 
 `gen_voice.py` は 1 行ずつ読み上げさせ、モデルが返す書き起こしと台本を照合します。
 一致しなければ 3 回まで録り直します。
-照合を通った音声は、前後の無音を削り、話速を調整し（ATEMPO 1.15）、音量をそろえます。
-7 行で 24 秒、費用は約 0.04 ドルでした。
+照合を通った音声は、前後の無音を削り、話速を調整し（環境変数 ATEMPO、今回は 1.25）、音量をそろえます。
+7 行で 19 秒、費用は約 0.06 ドルでした（DataZone 標準の単価。Global 標準なら約 0.05 ドル）。
 
 :::details つまずきやすい点：話速と読み
-- 話速を 1.06 倍にしていた時期は、依頼者から「遅すぎる」と言われました。既定を 1.15 にしています。CM のような調子なら 1.2 から 1.25 です。
+- 話速を 1.06 倍にしていた時期は、依頼者から「遅すぎる」と言われました。既定は 1.15 で、CM のような調子なら 1.2 から 1.25 です。
+- `gpt-realtime-2.1` は `gpt-realtime-2` より約 1 割ゆっくり読みます。同じ 7 行が 23.3 秒から 25.8 秒に延びたので、今回は 1.25 にしました。録り直さずに話速だけ変えるときは、`REUSE_RAW=1 ATEMPO=1.25` を付けて `gen_voice.py` を実行すると、録音済みの生音声を整音し直します。
 - 社名や英字略称は、読みが録るたびに揺れます。長音や中黒の入れ方で表記を決め（例「エヌ・ティー・ティー」）、4 から 6 回録って依頼者に番号で選んでもらいます。読みの良し悪しは、モデルに判定させても当てになりませんでした。
 - 字幕の表記を読みと変えたいときは、`lines.json` に `caption` を足します（読み「エーアイ」、字幕「AI」など）。
 :::
@@ -312,7 +341,7 @@ BGM は MusicGen small で素材を 2 本（静かなピアノと明るい主旋
 
 ```bash
 python3 $SK/gen_bgm.py assets/bgm          # torch と transformers が入った Python で
-$PY $SK/make_bed.py 29.68 7.9              # 総尺 29.68 秒、7.9 秒で主旋律に切り替える
+$PY $SK/make_bed.py 30.18 8.08             # 総尺 30.18 秒、8.08 秒で主旋律に切り替える
 ```
 
 GPU のない VM では、2 本の生成に約 6 分かかりました。
@@ -368,14 +397,14 @@ npm run check     # lint、レイアウト、文字のコントラスト、モ�
 npm run render    # renders/ に mp4 を書き出す
 ```
 
-`check` は 11 秒で終わり、0 error、文字のコントラストは 8 件すべて WCAG AA に合格しました。
-レンダは 29.7 秒の動画で 78 秒、出力は 14.1MB です。
+`check` は 10 秒で終わり、0 error、文字のコントラストは 8 件すべて WCAG AA に合格しました。
+レンダは 30.2 秒の動画で 79 秒、出力は 14.8MB です。
 
 レンダのあと、Claude Code は動画からコマを抜き出した一覧を見て、見た目を確かめます。
 
 ```bash
 $PY $SK/sample_frames.py renders/meetroom-30s.mp4 sheet.jpg 2 6 11.5 17 23 25.5
-ffmpeg -i renders/meetroom-30s.mp4 -af ebur128 -f null - 2>&1 | grep "I:"   # 音量（−13.4 LUFS）
+ffmpeg -i renders/meetroom-30s.mp4 -af ebur128 -f null - 2>&1 | grep "I:"   # 音量（−13.1 LUFS）
 ```
 
 ![抜き出したコマ](/images/claude-code-demo-video-hyperframes/frames.jpg)
@@ -411,18 +440,19 @@ ffmpeg -i renders/meetroom-30s.mp4 -af ebur128 -f null - 2>&1 | grep "I:"   # �
 | 工程 | 回数 | 費用（米ドル） | 実時間 |
 |---|---:|---:|---:|
 | 実画面の撮影 | 4 枚 | 0 | 4 秒 |
-| 写真の生成（gpt-image-2、2048×1152、high） | 4 枚 | 0.686 | 74 秒 |
-| ナレーション（gpt-realtime-2） | 7 行 | 0.044 | 24 秒 |
+| 写真の生成（gpt-image-2.5-flare、2048×1152、high） | 4 枚 | 0.177 | 28 秒 |
+| ナレーション（gpt-realtime-2.1、DataZone 標準） | 7 行 | 0.055 | 19 秒 |
 | BGM の素材（MusicGen small、CPU） | 2 本 | 0 | 350 秒 |
-| check | 1 回 | 0 | 11 秒 |
-| レンダ | 1 回 | 0 | 78 秒 |
-| **合計** | | **0.730** | |
+| check | 1 回 | 0 | 10 秒 |
+| レンダ | 1 回 | 0 | 79 秒 |
+| **合計** | | **0.232** | |
 
-費用のほとんどは画像で、1 枚あたり約 0.17 ドルです。
-単価（100 万トークンあたり）は、`gpt-image-2` がテキスト入力 5 ドル、画像出力 30 ドル、`gpt-realtime-2` がテキスト入力 4 ドル、テキスト出力 24 ドル、音声出力 64 ドルで、Azure（Global 標準）と OpenAI API で同じでした（2026 年 11 月時点）。
+費用の 4 分の 3 は画像で、1 枚あたり約 0.044 ドルです。
+単価（100 万トークンあたり）は、`gpt-image-2.5` がテキスト入力 5 ドル、画像出力 30 ドル、`gpt-realtime-2.1` がテキスト入力 4 ドル、テキスト出力 24 ドル、音声出力 64 ドルで、Azure（Global 標準）と OpenAI API で同じでした（2026 年 11 月時点）。
+初版の構成（`gpt-image-2` と `gpt-realtime-2`）では 0.730 ドルだったので、モデルを新しくしただけで約 3 分の 1 になりました。
 Claude Code 自体の利用料は契約プランによるので、表には含めていません。
 
-リポを作り始めてから完成版のレンダまでは約 20 分でした。
+初版のときは、リポを作り始めてから完成版のレンダまで約 20 分でした。
 この時間には、画面 4 枚の HTML 作成、BGM の待ち、見た目の修正と再レンダ 2 回が含まれます。
 内訳と単価の出典は、リポの `docs/costs.md` にあります。
 
@@ -437,7 +467,7 @@ Claude Code 自体の利用料は契約プランによるので、表には含�
 ### 費用をかけずに作れますか？
 
 実画面だけで構成し、写真を使わなければ、画像の費用はかかりません。
-ナレーションは 30 秒で約 0.04 ドルなので、その場合の費用はほぼゼロです。
+ナレーションは 30 秒で約 0.05 ドルなので、その場合の費用はほぼゼロです。
 BGM も、手持ちのロイヤリティフリー音源を使えば費用はかかりません。
 
 ### 60 秒や 180 秒に伸ばせますか？
@@ -462,7 +492,7 @@ Claude Code にスキルとスクリプトを渡すと、台本、素材、音�
 コードで作る利点は、指摘を受けたあとの作り直しが安いことです。
 台本を 1 行直せば、録り直し、尺の再計算、字幕の再配置、再レンダまでを Claude Code が進めます。
 
-30 秒の動画 1 本の API 費用は約 0.73 ドル、生成 API の待ちは合計約 2 分でした。
+30 秒の動画 1 本の API 費用は約 0.23 ドル、生成 API の待ちは合計約 1 分でした。
 道具一式と今回の題材は [claude-code-demo-video-kit](https://github.com/hayato-kishikawa/claude-code-demo-video-kit) にあります。
 
 ## 付録：リポの構成
@@ -477,7 +507,7 @@ claude-code-demo-video-kit/
 ├── requirements-bgm.txt      torch, transformers（BGM を作るときだけ）
 ├── skills/
 │   ├── ja-narrated-video/    手順書、編集方針、つまずきやすい点、スクリプト
-│   └── generate-image/       gpt-image-2 の単発とバッチ生成
+│   └── generate-image/       gpt-image-2.5 の単発とバッチ生成
 ├── examples/meetroom-30s/    この記事の題材（画面の HTML、素材、コマ、mp4、SRT、costs.jsonl）
 ├── docs/costs.md             費用と時間の実測
 ├── articles/                 この記事（Zenn）

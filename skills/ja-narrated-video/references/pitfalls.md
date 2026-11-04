@@ -4,6 +4,7 @@
 | 症状 | 原因 | 対処 |
 |---|---|---|
 | 画像生成・TTS が「接続先と鍵を環境変数に設定してください」で止まる | `.env` 未読込（バックグラウンド起動で忘れる） | `set -a && . <repo>/.env && set +a` を同じシェルで実行してから `setsid nohup … &` |
+| デプロイが `InsufficientQuota` で失敗する | クォータはモデルとデプロイ種別ごとにサブスクリプション全体で共有。他のリソースが枠を使い切っていることがある。DataZone 標準は別枠（単価は 1.1 倍）。費用の集計に反映するため `.env` に `REALTIME_SKU=DataZoneStandard` を書く |
 | `ModuleNotFoundError: websockets` | 別の Python（pyenv の版違いなど）で実行した | リポ直下の `.venv/bin/python` で実行する（`python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`） |
 | 実画面のスクショの下端に地の色が出る | `google-chrome --headless=new` はウィンドウ枠のぶんビューポートが縮む | HyperFrames が落とす chrome-headless-shell で撮る（例 `examples/meetroom-30s/.hyperframes/shoot_ui.sh`） |
 | `ModuleNotFoundError: rt_tts` | スクリプトの相対パス誤り | `scripts/rt_tts.py` を同じディレクトリから import（`gen_voice.py` はスキル内の相対で解決済み） |
@@ -56,7 +57,7 @@
 ## 素材
 | 症状 | 対処 |
 |---|---|
-| gpt-image-2 が 400 Bad Request | 児童（小学生・親子の子ども）を含むプロンプト。子ども不在の構図に |
+| 画像生成が 400 Bad Request | 児童（小学生・親子の子ども）を含むプロンプト。子ども不在の構図に |
 | 題字・注記が勝手に焼き込まれる | STRICT TEXT RULE を接頭辞末尾に |
 | どのタブから線が出るかを守らない | 拡大ボックスを付けるタブを行末（右下）に |
 | ラベルが化ける | 8 字以内。長文は SVG/HTML で |

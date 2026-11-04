@@ -1,4 +1,4 @@
-"""gpt-realtime-2 に音声を聞かせ、指定フレーズの発音を評価させる（TTS 出力の耳代わり。参考値）。
+"""gpt-realtime-2.1 に音声を聞かせ、指定フレーズの発音を評価させる（TTS 出力の耳代わり。参考値）。
 使い方: python3 rt_listen.py <wav> ["質問"]"""
 import asyncio, json, base64, os, sys, subprocess
 import websockets

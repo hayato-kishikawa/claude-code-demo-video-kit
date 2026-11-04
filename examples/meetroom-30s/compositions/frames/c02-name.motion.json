@@ -1,6 +1,6 @@
 {
  "scene": "c02-name",
- "duration_s": 3.0,
+ "duration_s": 3.13,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",

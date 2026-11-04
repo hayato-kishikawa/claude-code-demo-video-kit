@@ -1,6 +1,6 @@
 {
  "scene": "c01-morning",
- "duration_s": 4.9,
+ "duration_s": 4.95,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",

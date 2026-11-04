@@ -1,11 +1,11 @@
 ---
 name: generate-image
-description: Generate images with gpt-image-2 via Azure OpenAI or the OpenAI API (single or batch). Use whenever the user wants to create/generate images, illustrations, hero/key visuals, article挿絵, diagrams, infographics, mockups, or icons from a text description — including Japanese-labeled figures and wide hero banners. Handles structured prompt design, quality/size selection, 429 retry, and native high-resolution output. Do NOT use for simple shapes/diagrams/icons that are better authored directly as SVG/HTML/CSS, or for extending an existing repo SVG/vector icon system.
+description: Generate images with gpt-image-2.5 (flare / sunburst) or gpt-image-2 via Azure OpenAI or the OpenAI API (single or batch). Use whenever the user wants to create/generate images, illustrations, hero/key visuals, article挿絵, diagrams, infographics, mockups, or icons from a text description — including Japanese-labeled figures and wide hero banners. Handles structured prompt design, quality/size selection, 429 retry, and native high-resolution output. Do NOT use for simple shapes/diagrams/icons that are better authored directly as SVG/HTML/CSS, or for extending an existing repo SVG/vector icon system.
 ---
 
 # generate-image
 
-`gpt-image-2`（Azure OpenAI または OpenAI API）で画像を生成するスキル。記事の挿絵・図版・インフォグラフィック・ヒーロー(キービジュアル)・モックアップ・アイコンなどをテキストから作る。
+`gpt-image-2.5-flare`（既定）／`gpt-image-2.5-sunburst`（精度優先）／`gpt-image-2`（Azure OpenAI または OpenAI API）で画像を生成するスキル。2.5 は単価が同じで 1 枚の出力トークンが 2 の約 4 分の 1（費用も 4 分の 1）、生成も約 2.5 倍速かった（2048×1152・high で実測）。記事の挿絵・図版・インフォグラフィック・ヒーロー(キービジュアル)・モックアップ・アイコンなどをテキストから作る。
 
 ## 使う / 使わない
 
@@ -18,12 +18,12 @@ description: Generate images with gpt-image-2 via Azure OpenAI or the OpenAI API
 
 ## 前提（初回だけ）
 
-1. **Azure の場合は画像デプロイ** `gpt-image-2` が要る（OpenAI API なら不要）。無ければ作る:
+1. **Azure の場合は画像デプロイ** `gpt-image-2.5-flare` が要る（OpenAI API なら不要）。無ければ作る:
    ```bash
    az cognitiveservices account list-models -n <resource> -g <rg> \
      --query "[?contains(name,'image')].{name:name,version:version}" -o table
    az cognitiveservices account deployment create -n <resource> -g <rg> \
-     --deployment-name gpt-image-2 --model-name gpt-image-2 --model-version 2026-04-21 \
+     --deployment-name gpt-image-2.5-flare --model-name gpt-image-2.5-flare --model-version 2026-09-08 \
      --model-format OpenAI --sku-name GlobalStandard --sku-capacity 10
    ```
    容量が小さい(1)と 429 が多発 → 10 程度に。
@@ -35,7 +35,7 @@ description: Generate images with gpt-image-2 via Azure OpenAI or the OpenAI API
 
 ## サイズと quality（重要）
 
-- **サイズ**: gpt-image-2 はネイティブ最大 **3840px**（各辺16の倍数・長短比≤3:1・総ピクセル 655,360〜8,294,400）。
+- **サイズ**: gpt-image-2 はネイティブ最大 **3840px**（gpt-image-2 で確認。2.5 は 2048×1152 だけ確認）（各辺16の倍数・長短比≤3:1・総ピクセル 655,360〜8,294,400）。
   - 記事図版: `1536x1024`
   - ヒーロー/2K: `2048x1152`（横2000px超が要るときはこれで**直接生成**。PIL拡大より高品質）
   - 4K: `3840x2160`
@@ -43,7 +43,7 @@ description: Generate images with gpt-image-2 via Azure OpenAI or the OpenAI API
 - **quality**: `low`|`medium`|`high`|`auto`。
   - `low` … 下書き・サムネ・素早い反復（速い / 実測 ~12s）
   - `high` … 最終版・**文字の多い図/ダイアグラム**・高解像度（実測 ~64s）
-- 透過PNGは gpt-image-2 非対応（`background=transparent` 不可）。必要なら「単色クロマキー背景で生成→ローカルで透過化」か、`gpt-image-1.5` を要相談。
+- 透過PNGは gpt-image-2 非対応（2.5 は未確認）（`background=transparent` 不可）。必要なら「単色クロマキー背景で生成→ローカルで透過化」か、`gpt-image-1.5` を要相談。
 
 ## 使い方
 

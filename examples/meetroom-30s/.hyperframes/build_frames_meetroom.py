@@ -25,7 +25,7 @@ F = []
 # c01 朝のオフィス。ガラス張りの会議室（＝窓）を見せて、c03 の「窓が灯る」につなぐ
 d = dur("c01"); F.append(("c01-morning", d))
 build_frame("c01-morning", d, [
-    {"img": "gen/c01_corridor_b.png", "s": 0, "e": d, "kb": (1.0, 1.06, -24, -6)},
+    {"img": "gen/flare/c01_corridor_b.png", "s": 0, "e": d, "kb": (1.0, 1.06, -24, -6)},
 ])
 
 # c02 サービス名。LP をゆっくり寄せる
@@ -62,7 +62,7 @@ build_frame("c05-loop", d, [
 # c06 会議が始まる
 d = dur("c06", 3.0); F.append(("c06-talk", d))
 build_frame("c06-talk", d, [
-    {"img": "gen/c06_meeting_a.png", "s": 0, "e": d, "kb": (1.0, 1.05, 0, -10)},
+    {"img": "gen/flare/c06_meeting_a.png", "s": 0, "e": d, "kb": (1.0, 1.05, 0, -10)},
 ])
 
 # c07 締め。ロゴ（2×2 の窓のうち 1 つが灯る）とサービス名

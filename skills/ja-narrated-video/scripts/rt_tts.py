@@ -1,4 +1,4 @@
-"""gpt-realtime-2 を TTS として使い、1 文を 24kHz mono の wav にする。接続先は _client.py（PROVIDER）。
+"""gpt-realtime-2.1 を TTS として使い、1 文を 24kHz mono の wav にする。接続先は _client.py（PROVIDER）。
 使い方: python3 rt_tts.py "読み上げ文" out.wav [voice=marin]"""
 import asyncio, json, base64, os, sys, time, wave
 import websockets
@@ -22,7 +22,7 @@ async def tts(text, out, voice="marin"):
         with wave.open(out,"wb") as w:
             w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(bytes(pcm))
         res={"out":out,"seconds":len(pcm)/2/24000,"transcript":transcript}
-        _client.log("tts", model=_client.realtime_model(), chars=len(text), audio_s=round(res["seconds"],2),
+        _client.log("tts", model=_client.realtime_model(), sku=_client.sku("tts"), chars=len(text), audio_s=round(res["seconds"],2),
                     wall_s=round(time.time()-t0,1), usage=usage)
         print(json.dumps(res,ensure_ascii=False))
         return res

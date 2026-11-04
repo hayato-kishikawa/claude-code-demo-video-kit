@@ -12,3 +12,4 @@ renders/work-*
 *.log
 .thumbnails/
 .waveform-cache/
+_bed_tmp.wav

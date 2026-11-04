@@ -1,6 +1,6 @@
 {
  "scene": "c06-talk",
- "duration_s": 3.13,
+ "duration_s": 3.25,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",

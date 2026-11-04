@@ -30,7 +30,7 @@ SKILL.md の手順を実行するときに開く。数値は 1920×1080 前提�
 
 - `lines.json`: `[{"id":"e01","text":"読み上げ文","caption":"字幕表記(省略可)"}]`。`caption` は読みと字幕の表記を分けるとき用（例：読み「エーアイ」／字幕「AI」）。
 - `python3 $SK/gen_voice.py assets/voice_v2 marin [e07 …]`。`voice_meta.json` の `path` はプロジェクト相対（`assets/voice_v2/e07.wav`）になる。**プロジェクト直下で実行する。**
-- 読み速度 ≈5.5 文字/秒（ATEMPO 1.15 後）。100 字 ≈ 18s。話速は環境変数 `ATEMPO` で変える。
+- 読み速度 ≈5.8 文字/秒（gpt-realtime-2.1、ATEMPO 1.25 後）。100 字 ≈ 17s。話速は環境変数 `ATEMPO` で変える。
 - 固有名の読み: 表記で制御し、複数 take を `renders/<phrase>_takes/` に並べて利用者に選ばせる。`rt_listen.py <wav>` は参考程度。
 - 差し替え後は `voice_meta.json` の `duration_s` を ffprobe で更新 → `build_captions.py` → index 再生成。
 

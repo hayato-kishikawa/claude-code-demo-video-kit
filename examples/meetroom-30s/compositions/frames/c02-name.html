@@ -23,13 +23,13 @@
 </style>
 
 <div id="root" data-composition-id="c02-name" data-width="1920" data-height="1080">
-  <div class="clip c02-name-ground" id="c02-name-ground" data-start="0" data-duration="3" data-track-index="0"></div>
-  <div class="clip c02-name-layer" id="c02-name-L1" data-start="0" data-duration="3" data-track-index="1">
+  <div class="clip c02-name-ground" id="c02-name-ground" data-start="0" data-duration="3.13" data-track-index="0"></div>
+  <div class="clip c02-name-layer" id="c02-name-L1" data-start="0" data-duration="3.13" data-track-index="1">
     <div class="c02-name-outer" id="c02-name-L1o"><div class="c02-name-inner" id="c02-name-L1i">
       <img class="c02-name-img" src="assets/ui/index.png" alt="">
     </div></div>
   </div>
-  <div class="clip" id="c02-name-noteclip" data-start="0" data-duration="3" data-track-index="9">
+  <div class="clip" id="c02-name-noteclip" data-start="0" data-duration="3.13" data-track-index="9">
     <div class="c02-name-note" id="c02-name-note">架空のサービスのデモ画面</div>
   </div>
 
@@ -40,8 +40,8 @@
   var ID="c02-name";
   var q=function(k){return "#"+ID+"-"+k;};
   var tl=gsap.timeline({paused:true});
-  tl.fromTo(q("L1o"), {scale:1}, {scale:1.05,duration:3,ease:"none"}, 0);
-  tl.fromTo(q("L1i"), {x:0,y:0}, {x:24,y:0,duration:3,ease:"none"}, 0);
+  tl.fromTo(q("L1o"), {scale:1}, {scale:1.05,duration:3.13,ease:"none"}, 0);
+  tl.fromTo(q("L1i"), {x:0,y:0}, {x:24,y:0,duration:3.13,ease:"none"}, 0);
   tl.fromTo(q("note"), {opacity:0}, {opacity:1,duration:0.35,ease:"power1.out"}, 0.35);
 
   window.__timelines=window.__timelines||{};

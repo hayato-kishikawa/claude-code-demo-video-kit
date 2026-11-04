@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""gpt-image-2（Azure OpenAI または OpenAI API）で画像生成。単発 or JSONジョブでバッチ。429リトライ・任意アップスケール対応。
+"""gpt-image-2.5 / gpt-image-2（Azure OpenAI または OpenAI API）で画像生成。単発 or JSONジョブでバッチ。429リトライ・任意アップスケール対応。
 
 使い方:
   # 単発
@@ -12,9 +12,9 @@
   AZURE_OPENAI_BASE_URL   例: https://<resource>.openai.azure.com/openai/v1（PROVIDER=azure）
   AZURE_OPENAI_API_KEY
   OPENAI_API_KEY          PROVIDER=openai のとき。OPENAI_BASE_URL 省略時 https://api.openai.com/v1
-  IMAGE_DEPLOYMENT        省略時 gpt-image-2（Azure ではデプロイ名）
+  IMAGE_DEPLOYMENT        省略時 gpt-image-2.5-flare（Azure ではデプロイ名）。精度優先なら gpt-image-2.5-sunburst
 
-サイズ: gpt-image-2 はネイティブで最大3840pxまで可（16の倍数・比率≤3:1・総ピクセル 655,360〜8,294,400）。
+サイズ: gpt-image-2 系はネイティブで最大3840pxまで可（16の倍数・比率≤3:1・総ピクセル 655,360〜8,294,400）。
   よく使う: 1024x1024 / 1536x1024 / 1024x1536 / 2048x1152(2K横) / 2048x2048 / 3840x2160(4K横)
   ヒーロー等で2000px+が要るときは 2048x1152 等で直接生成する（upscale_width での拡大は補間なので非推奨・保険）。
 quality: low | medium | high | auto。文字の多い図/最終版は high、下書きは low（速い）。
@@ -25,7 +25,7 @@ JSONジョブ形式:
     "size": "2048x1152",            // 任意
     "quality": "high",              // 任意: low|medium|high|auto（images側で個別指定も可）
     "upscale_width": null,           // 任意: PIL拡大（基本不要。ネイティブ大サイズを優先）
-    "deployment": "gpt-image-2",    // 任意
+    "deployment": "gpt-image-2.5-flare",  // 任意
     "style": "共通スタイル接頭辞 …", // 任意: 各 prompt の先頭に付与
     "images": [ {"name": "kv1", "prompt": "…", "quality": "high"}, … ]
   }
@@ -102,7 +102,7 @@ def main():
     ap.add_argument("--quality", default=None, choices=["low", "medium", "high", "auto"])
     ap.add_argument("--upscale-width", type=int, default=0)
     ap.add_argument("--style", default="")
-    ap.add_argument("--deployment", default=os.environ.get("IMAGE_DEPLOYMENT", "gpt-image-2"))
+    ap.add_argument("--deployment", default=os.environ.get("IMAGE_DEPLOYMENT", "gpt-image-2.5-flare"))
     ap.add_argument("only", nargs="*", help="JSONジョブで生成対象を名前で絞る（任意）")
     a = ap.parse_args()
     base, key = _env()

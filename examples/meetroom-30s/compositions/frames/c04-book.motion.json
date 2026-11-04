@@ -1,6 +1,6 @@
 {
  "scene": "c04-book",
- "duration_s": 5.28,
+ "duration_s": 5.2,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",

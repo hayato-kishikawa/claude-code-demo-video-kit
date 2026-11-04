@@ -1,6 +1,6 @@
 {
  "scene": "c05-loop",
- "duration_s": 5.26,
+ "duration_s": 5.52,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",

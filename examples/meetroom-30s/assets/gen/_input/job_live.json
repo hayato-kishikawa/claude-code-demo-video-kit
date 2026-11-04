@@ -1,5 +1,5 @@
 {
- "out_dir": "assets/gen",
+ "out_dir": "assets/gen/gpt-image-2",
  "size": "2048x1152",
  "quality": "high",
  "style": "Photorealistic location photography for a Japanese B2B software promo video, landscape 16:9, 2048x1152. Depict an anonymous modern Japanese mid-size company office, never an identifiable company. Morning front-light, soft daylight through windows, soft contrast, natural 35mm-film-like colors, a calm palette of off-white, warm wood and muted deep green (#0F7B5F) accents; no evening light or dramatic backlighting. All people are East Asian adults in business-casual clothing, with no identifiable faces: show backs, shoulders, hands, or distant rear-facing figures. No legible text anywhere; signage is blank or out of focus, documents contain only illegible abstract marks, screens show blank panels or soft abstract grids, keyboards have unmarked keys. No real company names, brands, logos, recognizable products, watermarks, or readable badges. Keep the lower 22%, y=78-100%, simple and free of important subjects or fine detail for video subtitles; use uncluttered floor or desk surfaces rather than darkening the image. Keep principal subjects within the side margins. No robots, holograms, sparkles, or decorative particles. Text (verbatim): [] means no visible text. STRICT TEXT RULE: never render titles, annotations, captions, footnotes, overlay text, logos, or any other legible characters. ",
@@ -20,5 +20,6 @@
    "name": "c06_meeting_b",
    "prompt": "Scene: close view of hands around a light wooden meeting table as a discussion begins: one person's hands sliding a printed sheet with illegible marks toward another, a laptop half-open, two paper cups of coffee, a small plant. Participants' faces are out of frame; posture is relaxed and engaged. Glass wall and soft office bokeh in the background. Morning light. Composition: hands at center, lower 22% is plain table surface."
   }
- ]
+ ],
+ "deployment": "gpt-image-2"
 }

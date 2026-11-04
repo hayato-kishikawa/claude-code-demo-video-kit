@@ -1,7 +1,8 @@
 """接続先（Azure OpenAI / OpenAI API）の切り替えと、実測ログ（costs.jsonl）への追記。
   PROVIDER=azure（既定）: AZURE_OPENAI_BASE_URL=https://<resource>.openai.azure.com/openai/v1, AZURE_OPENAI_API_KEY（ヘッダ api-key）
   PROVIDER=openai       : OPENAI_API_KEY, OPENAI_BASE_URL（省略時 https://api.openai.com/v1）（ヘッダ Authorization: Bearer）
-  モデル名（Azure ではデプロイ名）: IMAGE_DEPLOYMENT（既定 gpt-image-2）, REALTIME_DEPLOYMENT（既定 gpt-realtime-2）
+  モデル名（Azure ではデプロイ名）: IMAGE_DEPLOYMENT（既定 gpt-image-2.5-flare）, REALTIME_DEPLOYMENT（既定 gpt-realtime-2.1）
+  Azure のデプロイ種別（費用の集計用）: IMAGE_SKU / REALTIME_SKU = GlobalStandard（既定）| DataZoneStandard
   COST_LOG: 実測ログの出力先（既定 ./costs.jsonl。プロジェクト直下で実行する）"""
 import json, os, sys, time
 
@@ -27,11 +28,18 @@ def headers():
 
 
 def image_model():
-    return os.environ.get("IMAGE_DEPLOYMENT", "gpt-image-2")
+    return os.environ.get("IMAGE_DEPLOYMENT", "gpt-image-2.5-flare")
 
 
 def realtime_model():
-    return os.environ.get("REALTIME_DEPLOYMENT", "gpt-realtime-2")
+    return os.environ.get("REALTIME_DEPLOYMENT", "gpt-realtime-2.1")
+
+
+def sku(kind):
+    """費用の集計用。OpenAI API は GlobalStandard と同額として扱う"""
+    if provider() == "openai":
+        return "GlobalStandard"
+    return os.environ.get({"image": "IMAGE_SKU", "tts": "REALTIME_SKU"}[kind], "GlobalStandard")
 
 
 def realtime_url():

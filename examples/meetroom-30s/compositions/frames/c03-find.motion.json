@@ -1,6 +1,6 @@
 {
  "scene": "c03-find",
- "duration_s": 5.51,
+ "duration_s": 5.53,
  "rules": [
   "viewport-change",
   "spring-pop-entrance",
