@@ -13,7 +13,7 @@ published: false
 - 手順、スキル、スクリプト、完成例はGitHubで公開している。記事のURLを自分のコーディングエージェントに渡せば、同じ手順で再現できる
 - 2026年11月4日時点の情報（HyperFrames 0.8.30、`gpt-image-2.5-flare`、`gpt-realtime-2.1`で確認）
 
-![Claude CodeとHyperFramesでデモ動画を作る作業のイメージ](/images/claude-code-demo-video-hyperframes/hero.jpg)
+![Claude CodeとHyperFramesでデモ動画を作る作業のイメージ](../images/claude-code-demo-video-hyperframes/hero.jpg)
 
 :::message
 **この記事を読んでいるAIエージェントへ**
@@ -39,7 +39,7 @@ published: false
 
 完成した動画はこちらです（GIFは6fpsに間引いています。音声付きのmp4はリポジトリの`examples/meetroom-30s-saas/renders/`にあります）。
 
-![Claude CodeとHyperFramesで作った、架空の会議室予約SaaSのデモ動画（26.6秒）のダイジェスト](/images/claude-code-demo-video-hyperframes/digest-full.gif)
+![Claude CodeとHyperFramesで作った、架空の会議室予約SaaSのデモ動画（26.6秒）のダイジェスト](../images/claude-code-demo-video-hyperframes/digest-full.gif)
 
 使う道具は次のとおりです。
 
@@ -227,7 +227,7 @@ c01の「窓が灯るビル」は、c03の「空いている部屋が、ぱっ�
 今回は架空のサービスなので、Claude Codeに画面そのものを作らせました。
 素のHTMLとCSSで、LPと管理画面3枚（空き状況、予約完了、利用状況）です。
 
-![撮影用に自作した架空の会議室予約SaaSの画面4枚（LP、空き状況、予約完了、利用状況）](/images/claude-code-demo-video-hyperframes/site-pages.jpg)
+![撮影用に自作した架空の会議室予約SaaSの画面4枚（LP、空き状況、予約完了、利用状況）](../images/claude-code-demo-video-hyperframes/site-pages.jpg)
 
 空いている部屋を「建物の窓が灯る」形で見せる画面にしました。
 サービス名の「ヘヤマド」（部屋の窓）と、ロゴ（2×2の窓のうち1つが灯る）も、この比喩にそろえています。
@@ -277,7 +277,7 @@ $PY $SK/contact_sheet.py assets/gen/flare "" sheet.jpg
 Claude Codeは一覧画像（コンタクトシート）を見て、採用する案を選びます。
 予約完了のシーンには、ナレーションの「予定表にも、すぐ届きます」に合わせて、紙飛行機が飛ぶカレンダーの案を選びました。
 
-![gpt-image-2.5-flareで生成した立体の小物と写真の候補（1場面2案）と採用した案](/images/claude-code-demo-video-hyperframes/gen-candidates.jpg)
+![gpt-image-2.5-flareで生成した立体の小物と写真の候補（1場面2案）と採用した案](../images/claude-code-demo-video-hyperframes/gen-candidates.jpg)
 
 接頭辞に入れている指定には、それぞれ理由があります。
 
@@ -302,7 +302,7 @@ Claude Codeは一覧画像（コンタクトシート）を見て、採用する
 トークン単価は3つとも同じです。
 解像度も同じ2048×1152ですが、2.5は1枚の出力トークンが4分の1なので、費用も4分の1になりました。
 
-![gpt-image-2、gpt-image-2.5-flare、gpt-image-2.5-sunburstを同じプロンプトで比べた写真（4枚のうち2枚を掲載）](/images/claude-code-demo-video-hyperframes/image-models.jpg)
+![gpt-image-2、gpt-image-2.5-flare、gpt-image-2.5-sunburstを同じプロンプトで比べた写真（4枚のうち2枚を掲載）](../images/claude-code-demo-video-hyperframes/image-models.jpg)
 
 図は、比べた4枚のうち2枚（上が入室の場面、下が会議の場面）です。
 
@@ -433,7 +433,7 @@ $PY $SK/build_index.py index_config.json
 
 HyperFramesのプレビュー（`npm run dev`）を開くと、シーンとタイムラインを確認できます。
 
-![HyperFramesのプレビュー画面（シーンの一覧とタイムライン）](/images/claude-code-demo-video-hyperframes/studio.jpg)
+![HyperFramesのプレビュー画面（シーンの一覧とタイムライン）](../images/claude-code-demo-video-hyperframes/studio.jpg)
 
 :::details つまずきやすい点：HyperFramesの検査で引っかかるもの
 - 各シーンの`#root`に`data-width`と`data-height`がないと、`root_missing_dimensions`で止まります。
@@ -442,7 +442,7 @@ HyperFramesのプレビュー（`npm run dev`）を開くと、シーンとタ�
 - Ken Burnsやパンチインで画像が枠からはみ出すと`container_overflow`が出ますが、意図した動きなので問題ありません。
 :::
 
-## 工程8：hyperframesのcheckとrenderで検査して書き出す
+## 工程8：HyperFramesのcheckとrenderで検査して書き出す
 
 ```bash
 npm run check     # lint、レイアウト、文字のコントラスト、モーションを検査
@@ -462,7 +462,7 @@ $PY $SK/sample_frames.py renders/meetroom-30s-saas.mp4 sheet.jpg 2.6 10.3 16.5 1
 ffmpeg -i renders/meetroom-30s-saas.mp4 -af ebur128 -f null - 2>&1 | grep "I:"   # 音量（−13.6 LUFS）
 ```
 
-![完成した動画から抜き出したフレーム（大きな文字、浮かぶ画面カード、件数のカウントアップ、写真、締め）](/images/claude-code-demo-video-hyperframes/frames.jpg)
+![完成した動画から抜き出したフレーム（大きな文字、浮かぶ画面カード、件数のカウントアップ、写真、締め）](../images/claude-code-demo-video-hyperframes/frames.jpg)
 
 最初に抜き出したフレームでは、2つの問題が見つかりました。
 
